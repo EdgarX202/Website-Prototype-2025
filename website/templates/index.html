@@ -3,45 +3,55 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Title of the webpage -->
+        <!-- Title of the webpage and favicon -->
         <title>Petitions Market</title>
         <link rel="icon" type="image/png" sizes="48x48" href="static/images/favicon.png">
-        <!-- Stylesheets -->
+        <!-- Bootstrap stylesheet and javascript-->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.js') }}"></script>
     </head> <!-- HEAD END -->
 
     <body>
-        <div class="p-2 bg-secondary"></div>
-
-
-            <div class="p-1 row">
-                <div class="p-4 col-3 bg-white text-center">
-                    <img src="static/images/logo.png" class="img-thumbnail" alt="Logo">
+        <div class="row">
+            <div class="p-2 col-12 col-md-12 col-lg-3 d-none d-lg-block bg-success"></div>
+            <div class="p-2 col-12 col-md-12 col-lg-4 bg-dark"></div>
+            <div class="p-2 col-12 col-md-12 col-lg-5 d-none d-lg-block bg-primary"></div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="p-2 col-12 col-md-12 col-lg-3 bg-white text-center">
+                    <img src="static/images/logo.png" class="img-thumbnail mx-auto d-block d-md-block" alt="Logo">
                 </div>
-                <div class="p-4 col-7 bg-white text-center">NAV HERE</div>
+
+                <div class="p-4 col-12 col-md-12 col-lg-4 bg-white text-center mx-auto d-block d-lg-block d-none"></div>
+
+                <div class="p-4 col-12 col-md-12 col-lg-5 bg-white text-center">
+                     <form action="/action_page.php" class="was-validated"> <!-- ACTION WHERE???? -->
+                         <div class="row">
+                             <div class="col-12 col-md-4 mb-1">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
+                              <div class="valid-feedback">Valid.</div>
+                              <div class="invalid-feedback">Please fill out this field.</div>
+                             </div>
+                             <div class="col-12 col-md-4 mb-3">
+                            <label for="pwd" class="form-label">Password:</label>
+                            <input type="password" class="form-control" id="pwd" placeholder="Password" name="pswd">
+                             </div>
+                             <div class="col-12 col-md-4">
+                         <button type="submit" class="btn btn-primary">LOGIN</button>
+                                 <button type="submit" class="btn btn-primary">SIGN UP</button>
+                             </div>
+                         </div>
+                     </form>
+                </div>
             </div>
-
-
-        <div class="p-2 bg-secondary"></div>
-
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <div class="container-fluid">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link active" href="#">Active</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+        </div> <!-- END OF CONTAINER-FLUID -->
+        <div class="row">
+            <div class="p-2 col-12 col-md-12 col-lg-3 d-none d-lg-block bg-success"></div>
+            <div class="p-2 col-12 col-md-12 col-lg-4 bg-dark"></div>
+            <div class="p-2 col-12 col-md-12 col-lg-5 d-none d-lg-block bg-primary"></div>
+        </div>
 
 <div class="container mt-5">
   <div class="row">
@@ -85,7 +95,7 @@
 </div>
 
 <div class="mt-5 p-4 bg-dark text-white text-center">
-  <p>Footer</p>
+  <p>ENU@2025</p>
 </div>
     </body> <!-- BODY END -->
 </html> <!-- HTML END -->
