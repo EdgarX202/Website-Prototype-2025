@@ -12,95 +12,96 @@
     </head> <!-- HEAD END -->
 
     <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="p-2 col-12 col-md-12 col-lg-3 d-none d-lg-block bg-dark"></div>
-            <div class="p-2 col-12 col-md-12 col-lg-4 bg-dark"></div>
-            <div class="p-2 col-12 col-md-12 col-lg-5 d-none d-lg-block bg-dark"></div>
-        </div>
-
+        <!-- Beginning of top section -->
+        <div class="container-fluid">
             <div class="row">
-                <div class="p-2 col-12 col-md-12 col-lg-3 bg-white text-center">
-                    <!-- <img src="static/images/logo.png" class="img-thumbnail mx-auto d-block d-md-block" alt="Logo"> -->
-                </div>
-
-                <div class="p-4 col-12 col-md-12 col-lg-4 bg-transparent text-center mx-auto d-block d-lg-block d-none"></div>
-
-                <div class="p-4 col-12 col-md-12 col-lg-5 bg-white text-center">
-                     <form action="/action_page.php"> <!-- ACTION WHERE???? -->
-                         <div class="row">
-                             <div class="col-12 col-md-4 mb-1">
-                                <label for="email" class="form-label">Email:</label>
-                                <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
-                                <div class="valid-feedback">Valid.</div>
-                                <div class="invalid-feedback">Please fill out this field.</div>
-                             </div>
-                             <div class="col-12 col-md-4 mb-3">
-                                <label for="pwd" class="form-label">Password:</label>
-                                <input type="password" class="form-control" id="pwd" placeholder="Password" name="pswd" required>
-                             </div>
-                             <div class="col-12 col-md-4">
-                                 <button type="submit" class="btn btn-outline-success">LOGIN</button>
-                                 <button type="submit" class="btn btn-primary">SIGN UP</button>
-                             </div>
-                         </div>
-                     </form>
-                </div>
+                <!-- TOP LINE -->
+                <div class="p-1 col-12 col-sm-12 col-md-12 col-lg-12 d-lg-block bg-primary"></div>
             </div>
 
-        <div class="row">
+            <div class="container bg-light">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-4 bg-transparent text-center">
+                            <img src="static/images/logo.png" class="img-fluid mx-auto d-block" alt="Logo">
+                        </div>
 
+                        <div class="p-4 col-12 col-md-12 col-lg-3 bg-transparent text-center mx-auto d-block d-lg-block d-none"></div>
 
-<div class="progress">
-  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-</div>
+                        <div class="p-4 col-12 col-md-12 col-lg-5 text-center">
+                             <form action="/action_page.php"> <!-- ACTION WHERE???? -->
+                                 <div class="row">
+                                     <div class="col-12 col-md-4 mb-1">
+                                        <label for="email" class="form-label">Email:</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
+                                        <div class="valid-feedback">Valid.</div>
+                                        <div class="invalid-feedback">Please fill out this field.</div>
+                                     </div>
+                                     <div class="col-12 col-md-4 mb-3">
+                                        <label for="pwd" class="form-label">Password:</label>
+                                        <input type="password" class="form-control" id="pwd" placeholder="Password" name="pswd" required>
+                                     </div>
+                                     <div class="col-12 col-md-4">
+                                         <button type="submit" class="btn btn-outline-success">LOGIN</button>
+                                         <button type="submit" class="btn btn-primary">SIGN UP</button>
+                                     </div>
+                                 </div>
+                             </form>
+                        </div>
+                    </div>
+                </div> <!-- CONTAINER END -->
+            </div> <!-- FLUID-CONTAINER BG COLOUR END -->
+        </div> <!-- FLUID-CONTAINER END -->
+        <!-- End of top section -->
 
+        <!-- Start of mid-section -->
+        <div class="container mt-5">
+          <div class="row">
+            <div class="col-sm-7">
+              <h2>About Me</h2>
+              <h5>Photo of me:</h5>
+              <div class="fakeimg">Fake Image</div>
+              <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+              <h3 class="mt-4">Some Links</h3>
+              <p>Lorem ipsum dolor sit ame.</p>
+              <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">Active</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+              </ul>
+              <hr class="d-sm-none">
+            </div>
+            <div class="col-sm-5">
+              <h2>TITLE HEADING</h2>
+              <h5>Title description, Dec 7, 2020</h5>
+              <div class="fakeimg">Fake Image</div>
+              <p>Some text..</p>
+              <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
 
+              <h2 class="mt-5">TITLE HEADING</h2>
+              <h5>Title description, Sep 2, 2020</h5>
+              <div class="fakeimg">Fake Image</div>
+              <p>Some text..</p>
+              <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+            </div>
+          </div>
         </div>
-    </div> <!-- END OF CONTAINER-FLUID -->
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-sm-4">
-      <h2>About Me</h2>
-      <h5>Photo of me:</h5>
-      <div class="fakeimg">Fake Image</div>
-      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-      <h3 class="mt-4">Some Links</h3>
-      <p>Lorem ipsum dolor sit ame.</p>
-      <ul class="nav nav-pills flex-column">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Active</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
-        </li>
-      </ul>
-      <hr class="d-sm-none">
-    </div>
-    <div class="col-sm-8">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Dec 7, 2020</h5>
-      <div class="fakeimg">Fake Image</div>
-      <p>Some text..</p>
-      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+        <!-- End of mid-section -->
 
-      <h2 class="mt-5">TITLE HEADING</h2>
-      <h5>Title description, Sep 2, 2020</h5>
-      <div class="fakeimg">Fake Image</div>
-      <p>Some text..</p>
-      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-    </div>
-  </div>
-</div>
-
-<div class="mt-5 p-4 bg-dark text-white text-center">
-  <p>ENU@2025</p>
-</div>
+        <!-- Start of footer -->
+        <div class="mt-5 p-4 bg-dark text-white text-center">
+          <p>ENU@2025</p>
+        </div>
+        <!-- End of footer -->
+    
     </body> <!-- BODY END -->
 </html> <!-- HTML END -->
