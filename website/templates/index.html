@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
     <head> <!-- HEAD -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,8 +11,7 @@
         <script src="{{ url_for('static', filename='js/bootstrap.bundle.js') }}"></script>
     </head> <!-- HEAD END -->
 
-    <body> <!-- BODY -->
-        <!-- Beginning of top section -->
+    <header>
         <div class="container-fluid bg-warning"> <!-- KEEP TESTING WITH COLOURS!!!!!!!!!!!!!!!!!!!!!!!! -->
             <div class="row"> <!-- The very top thin line -->
                 <div class="p-1 col-12 col-sm-12 col-md-12 col-lg-12 d-lg-block bg-primary"></div>
@@ -44,8 +43,8 @@
                                         <input type="password" class="form-control" id="pwd" placeholder="Password" name="pswd" required>
                                      </div>
                                      <div class="col-12 col-md-4">
-                                         <button type="submit" class="btn btn-outline-success mb-md-2 me-md-0 me-3">LOGIN</button>
-                                         <button type="submit" class="btn btn-primary">SIGN UP</button>
+                                         <button type="submit" class="btn btn-outline-success mt-md-4 me-md-0 me-3">LOGIN</button>
+                                         <button type="submit" class="btn btn-primary mt-md-4 me-md-0 me-3">SIGN UP</button>
                                      </div>
                                  </div> <!-- ROW END -->
                              </form> <!-- FORM END -->
@@ -54,8 +53,9 @@
                 </div> <!-- CONTAINER END -->
             </div> <!-- FLUID-CONTAINER BG COLOUR END -->
         </div> <!-- FLUID-CONTAINER END -->
-        <!-- End of top section -->
+    </header> <!-- HEADER END -->
 
+    <body> <!-- BODY -->
         <!-- Start of mid-section -->
         <div class="container mt-5">
           <div class="row">
@@ -82,13 +82,12 @@
           </div> <!-- ROW END -->
         </div>
         <!-- End of mid-section -->
+    </body> <!-- BODY END -->
 
-        <!-- Start of footer -->
+    <footer>
         <div class="mt-5 p-3 bg-dark text-white text-center">
           <p>ENU@2025</p>
         </div>
+    </footer> <!-- FOOTER END -->
 
-        <!-- End of footer -->
-
-    </body> <!-- BODY END -->
 </html> <!-- HTML END -->
