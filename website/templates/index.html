@@ -6,13 +6,14 @@
         <!-- Title of the webpage and favicon -->
         <title>Petitions Market</title>
         <link rel="icon" type="image/png" sizes="48x48" href="static/images/favicon.png">
-        <!-- Bootstrap stylesheet and javascript-->
+        <!-- Stylesheets and javascript-->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <script src="{{ url_for('static', filename='js/bootstrap.bundle.js') }}"></script>
     </head> <!-- HEAD END -->
 
     <header>
-        <div class="container-fluid bg-warning"> <!-- KEEP TESTING WITH COLOURS!!!!!!!!!!!!!!!!!!!!!!!! -->
+        <div class="container-fluid custom-bg-colour"> <!-- DO I NEED THIS COLOUR?????????????????? -->
             <div class="row"> <!-- The very top thin line -->
                 <div class="p-1 col-12 col-sm-12 col-md-12 col-lg-12 d-lg-block bg-primary"></div>
             </div> <!-- ROW END -->
@@ -20,7 +21,7 @@
             <div class="container bg-body-tertiary">
                 <div class="container">
                     <div class="row">
-                        <!-- Logo column (left) -->
+                        <!-- Logo column (left-side) -->
                         <div class="col-12 col-md-12 col-lg-4 bg-transparent text-center">
                             <img src="static/images/logo.png" class="img-fluid mx-auto d-block mt-md-2" alt="Logo">
                         </div>
@@ -28,7 +29,7 @@
                         <!-- Middle column, not used. Required to make other columns smaller -->
                         <div class="p-4 col-12 col-md-12 col-lg-2 bg-transparent text-center mx-auto d-block d-lg-block d-none"></div>
 
-                        <!-- Login form column (right) -->
+                        <!-- Login form column (right-side) -->
                         <div class="p-4 col-12 col-md-12 col-lg-6 text-center">
                              <form action="/action_page.php"> <!-- ACTION WHERE???? -->
                                  <div class="row">
@@ -60,7 +61,7 @@
         <div class="container mt-5">
           <div class="row">
             <div class="col-sm-6">
-                <div class="border border-info p-3">
+                <div class="border border-primary p-3 rounded-4">
                   <h2>About Me</h2>
                   <h5>Photo of me:</h5>
                   <div class="fakeimg">Fake Image</div>
