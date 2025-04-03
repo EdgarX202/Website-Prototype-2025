@@ -6,10 +6,12 @@
         <!-- Title of the webpage and favicon -->
         <title>Petitions Market</title>
         <link rel="icon" type="image/png" sizes="48x48" href="static/images/favicon.png">
-        <!-- Stylesheets and javascript-->
+        <!-- Stylesheets, javascript, jquery -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <script src="{{ url_for('static', filename='js/bootstrap.bundle.js') }}"></script>
+        <script src="static/js/login.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head> <!-- HEAD END -->
 
     <header>
@@ -31,24 +33,30 @@
 
                         <!-- Login form column (right-side) -->
                         <div class="p-4 col-12 col-md-12 col-lg-6 text-center">
-                             <form action="/action_page.php"> <!-- ACTION WHERE???? -->
-                                 <div class="row">
-                                     <div class="col-12 col-md-4 mb-md-0 mb-2">
-                                        <label for="email" class="form-label">Email:</label>
-                                        <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                     </div>
-                                     <div class="col-12 col-md-4 mb-md-0 mb-3">
-                                        <label for="pwd" class="form-label">Password:</label>
-                                        <input type="password" class="form-control" id="pwd" placeholder="Password" name="pswd" required>
-                                     </div>
-                                     <div class="col-12 col-md-4">
-                                         <button type="submit" class="btn btn-outline-success mt-md-4 me-md-0 me-3">LOGIN</button>
-                                         <button type="submit" class="btn btn-primary mt-md-4 me-md-0 me-3">SIGN UP</button>
-                                     </div>
-                                 </div> <!-- ROW END -->
-                             </form> <!-- FORM END -->
+                            <div id="login-block">
+                                {% if logged_in %}
+                                    <p>Welcome, {{ email }} LogoutButton</a></p>
+                                {% else %}
+                                 <form id="login" method="post">
+                                     <div class="row">
+                                         <div class="col-12 col-md-4 mb-md-0 mb-2">
+                                            <label for="email" class="form-label">Email:</label>
+                                            <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
+                                            <div class="valid-feedback">Valid.</div>
+                                            <div class="invalid-feedback">Please fill out this field.</div>
+                                         </div>
+                                         <div class="col-12 col-md-4 mb-md-0 mb-3">
+                                            <label for="password" class="form-label">Password:</label>
+                                            <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
+                                         </div>
+                                         <div class="col-12 col-md-4">
+                                             <button type="submit" class="btn btn-outline-success mt-md-4 me-md-0 me-3">LOGIN</button>
+                                             <button type="submit" class="btn btn-primary mt-md-4 me-md-0 me-3">SIGN UP</button>
+                                         </div>
+                                     </div> <!-- ROW END -->
+                                 </form> <!-- FORM END -->
+                                {% endif %}
+                            </div> <!-- LOGIN BLOCK END -->
                         </div>
                     </div> <!-- ROW END -->
                 </div> <!-- CONTAINER END -->
@@ -60,29 +68,38 @@
         <!-- Start of mid-section -->
         <div class="container mt-5">
           <div class="row">
-            <div class="col-sm-6">
-                <div class="border border-primary p-3 rounded-4">
-                  <h2>About Me</h2>
-                  <h5>Photo of me:</h5>
-                  <div class="fakeimg">Fake Image</div>
-                  <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+            <div class="col-sm-7">
+                <div class="custom-left-box">
+                    <h3>Most Popular</h3>
+                    <div class="custom-petition-box">
+                        <div class="petition-header">
+                            <span>"Name variable"</span>
+                            <span>Signed: "variable"</span>
+                        </div>
+                        <div class="petition-image">
+                            X
+                        </div>
+                            <div class="petition-title">
+                                Title goes here...
+                            </div>
+                            <p class="petition-description">
+                                Sed ut perspiciatis unde omnis iste natus error sit accusantium doloremque
+                                laudantium, laudantium totam rem aperiam, laudantium, laudantium, laudantium
+                                eaque ipsa quae ab illo inventore veritatis.
+                            </p>
+                    </div>
                 </div>
-            </div>
-
-              <div class="col-sm-1"></div> <!-- Empty column to create space -->
-
             <div class="col-sm-5">
-                <div class="border border-info p-3">
-                  <h2>TITLE HEADING</h2>
-                  <h5>Title description, Dec 7, 2020</h5>
-                  <div class="fakeimg">Fake Image</div>
-                  <p>Some text..</p>
-                  <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+                <div class="custom-right-box">
+                    <h3>Latest</h3>
+                    <div class="custom-petition-box">
+
+                    </div>
+                    </div>
                 </div>
-            </div>
-          </div> <!-- ROW END -->
-        </div>
-        <!-- End of mid-section -->
+            </div> <!-- ROW END -->
+          </div>
+        </div> <!-- End of mid-section -->
     </body> <!-- BODY END -->
 
     <footer>
