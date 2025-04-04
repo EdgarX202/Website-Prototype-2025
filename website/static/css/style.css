@@ -36,6 +36,16 @@
     align-items: flex-start; /* Align items to the top */
 }
 
+.custom-petition-box-right {
+  display: flex;
+  background-color: #f0f0f0; /* Light gray background */
+  padding: 20px;
+  margin: 20px;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  align-items: flex-start; /* Align items to the start of the container */
+}
+
 .petition-header {
     display: flex;
     justify-content: space-between;
@@ -72,11 +82,41 @@
     margin-bottom: 0; /* remove margin bottom */
   }
 
-  .petition-title,
-  .petition-description {
-      flex: 1; /* Allow text to take remaining space */
-      min-width: 0; /* Prevent overflow */
-  }
+.petition-image-right {
+  width: 120px; /* Fixed width for the image container */
+          height: 120px; /* Fixed height for the image container */
+          background-color: #ddd; /* Placeholder image background */
+          margin-right: 20px; /* Space between image and text */
+          display: flex; /* For centering the X */
+          justify-content: center;
+          align-items: center;
+          border-radius: 8px;
+}
+
+.petition-content-right {
+  flex: 1; /* Allow text to take up remaining space */
+}
+
+.petition-title-right {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #5e35b1; /* Purple color, as in the example */
+  margin-bottom: 5px;
+  border-bottom: 2px solid #b388ff;
+  padding-bottom: 5px;
+}
+
+.petition-description-right {
+  font-size: 0.9em;
+  color: #555; /* Darker gray for description */
+  line-height: 1.5; /* Improve readability */
+}
+
+.petition-title,
+.petition-description {
+    flex: 1; /* Allow text to take remaining space */
+    min-width: 0; /* Prevent overflow */
+}
 
   .petition-title {
     font-size: 1.5em;
