@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
-    <head> <!-- HEAD -->
+    <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Title of the webpage and favicon -->
         <title>Petitions Market</title>
         <link rel="icon" type="image/png" sizes="48x48" href="static/images/favicon.png">
-        <!-- Stylesheets, javascript, jquery -->
+        <!-- Stylesheets, javascript, jquery(CDN) -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <script src="{{ url_for('static', filename='js/bootstrap.bundle.js') }}"></script>
@@ -88,15 +88,50 @@
                                 eaque ipsa quae ab illo inventore veritatis.
                             </p>
                     </div>
-                </div>
+                    <div class="custom-petition-box">
+                        <div class="petition-header">
+                            <span>"Name variable"</span>
+                            <span>Signed: "variable"</span>
+                        </div>
+                        <div class="petition-image">
+                            X
+                        </div>
+                            <div class="petition-title">
+                                Title goes here...
+                            </div>
+                            <p class="petition-description">
+                                Sed ut perspiciatis unde omnis iste natus error sit accusantium doloremque
+                                laudantium, laudantium totam rem aperiam, laudantium, laudantium, laudantium
+                                eaque ipsa quae ab illo inventore veritatis.
+                            </p>
+                    </div>
+                    <div class="custom-petition-box">
+                        <div class="petition-header">
+                            <span>"Name variable"</span>
+                            <span>Signed: "variable"</span>
+                        </div>
+                        <div class="petition-image">
+                            X
+                        </div>
+                            <div class="petition-title">
+                                Title goes here...
+                            </div>
+                            <p class="petition-description">
+                                Sed ut perspiciatis unde omnis iste natus error sit accusantium doloremque
+                                laudantium, laudantium totam rem aperiam, laudantium, laudantium, laudantium
+                                eaque ipsa quae ab illo inventore veritatis.
+                            </p>
+                    </div>
+                </div> <!-- CUSTOM LEFT BOX END -->
+            </div>
+
             <div class="col-sm-5">
                 <div class="custom-right-box">
                     <h3>Latest</h3>
                     <div class="custom-petition-box">
 
                     </div>
-                    </div>
-                </div>
+                </div> <!-- CUSTOM RIGHT BOX END -->
             </div> <!-- ROW END -->
           </div>
         </div> <!-- End of mid-section -->
