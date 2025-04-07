@@ -10,12 +10,13 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <script src="{{ url_for('static', filename='js/bootstrap.bundle.js') }}"></script>
-        <script src="static/js/login.js"></script>
+        <script src="{{ url_for('static', filename='/js/login.js') }}"></script>
+        <script src="{{ url_for('static', filename='/js/signup.js') }}"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head> <!-- HEAD END -->
 
     <header>
-        <div class="container-fluid custom-bg-colour"> <!-- DO I NEED THIS COLOUR?????????????????? -->
+        <div class="container-fluid custom-bg-colour">
             <div class="row"> <!-- The very top thin line -->
                 <div class="p-1 col-12 col-sm-12 col-md-12 col-lg-12 d-lg-block bg-primary"></div>
             </div> <!-- ROW END -->
@@ -34,8 +35,16 @@
                         <!-- Login form column (right-side) -->
                         <div class="p-4 col-12 col-md-12 col-lg-6 text-center">
                             <div id="login-block">
+                                <!-- Display when user is logged in -->
                                 {% if logged_in %}
-                                    <p>Welcome, {{ email }} LogoutButton</a></p>
+                                    <p>Welcome, {{ email }} <a href="/logout">Logout</a></p>
+                                    <!-- Display specific content based on user role (admin or basic user) -->
+                                    {% if is_admin %}
+                                        <button>ManagementButton</button>
+                                    {% else %}
+                                        <button>New Petition</button>
+                                    {% endif %}
+
                                 {% else %}
                                  <form id="login" method="post">
                                      <div class="row">
@@ -50,13 +59,44 @@
                                             <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
                                          </div>
                                          <div class="col-12 col-md-4">
-                                             <button type="submit" class="btn btn-outline-success mt-md-4 me-md-0 me-3">LOGIN</button>
-                                             <button type="submit" class="btn btn-primary mt-md-4 me-md-0 me-3">SIGN UP</button>
+                                             <button type="submit" class="btn btn-outline-success mt-md-4 me-md-0 me-3">LOGIN</button> <!-- LOGIN BUTTON -->
                                          </div>
                                      </div> <!-- ROW END -->
                                  </form> <!-- FORM END -->
+                                <button type="submit" class="btn btn-primary mt-md-4 me-md-0 me-3">SIGN UP</button> <!-- SIGN UP BUTTON -->
                                 {% endif %}
                             </div> <!-- LOGIN BLOCK END -->
+
+                            <!-- Popup window for sign up -->
+                            <div class="overlay-pop" id="signup-pop">
+                                <div class="content-pop">
+                                    <span class="close-button" id="close-pop">&times;</span>
+                                    <h2>Create Account</h2>
+                                    <p>Please fill in this account creation form.</p>
+                                    <form id="signup-form">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="user-email" name="email" required>
+
+                                        <label for="password">Password</label>
+                                        <input type="password" id="user-password" name="password" required>
+
+                                        <label for="firstName">Name</label>
+                                        <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
+                                        <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+
+                                        <label for="city">City</label>
+                                        <input type="text" id="city" name="city" required>
+
+                                        <label for="country">Country</label>
+                                        <input type="text" id="country" name="country" required>
+
+                                        <div class="clear"></div>
+                                        <button type="submit">CREATE ACCOUNT</button>
+                                        <button type="button" id="cancel-button">CANCEL</button>
+                                    </form> <!-- POPUP FORM END -->
+                                </div> <!-- CONTENT POP END -->
+                            </div> <!-- OVERLAY POP END -->
+
                         </div>
                     </div> <!-- ROW END -->
                 </div> <!-- CONTAINER END -->
@@ -71,82 +111,57 @@
             <div class="col-sm-7">
                 <div class="custom-left-box">
                     <h3>Most Popular</h3>
-                    <div class="custom-petition-box">
-                        <div class="petition-header">
-                            <span>"Name variable"</span>
-                            <span>Signed: "variable"</span>
-                        </div>
-                        <div class="petition-image">
-                            X
-                        </div>
-                            <div class="petition-title">
-                                Title goes here...
+                    <div class="inner-box">
+                        <div class="custom-petition-box-left">
+                            <div class="petition-header">
+                                <span class="name-variable">"Name variable"</span>
+                                <span class="signature-variable">Signed: "variable"</span>
                             </div>
-                            <p class="petition-description">
-                                Sed ut perspiciatis unde omnis iste natus error sit accusantium doloremque
-                                laudantium, laudantium totam rem aperiam, laudantium, laudantium, laudantium
-                                eaque ipsa quae ab illo inventore veritatis.
-                            </p>
-                    </div>
-                    <div class="custom-petition-box">
-                        <div class="petition-header">
-                            <span>"Name variable"</span>
-                            <span>Signed: "variable"</span>
-                        </div>
-                        <div class="petition-image">
-                            X
-                        </div>
-                            <div class="petition-title">
-                                Title goes here...
+                            <div class="petition-image">
+                                X
                             </div>
-                            <p class="petition-description">
-                                Sed ut perspiciatis unde omnis iste natus error sit accusantium doloremque
-                                laudantium, laudantium totam rem aperiam, laudantium, laudantium, laudantium
-                                eaque ipsa quae ab illo inventore veritatis.
-                            </p>
-                    </div>
-                    <div class="custom-petition-box">
-                        <div class="petition-header">
-                            <span>"Name variable"</span>
-                            <span>Signed: "variable"</span>
-                        </div>
-                        <div class="petition-image">
-                            X
-                        </div>
-                            <div class="petition-title">
-                                Title goes here...
-                            </div>
-                            <p class="petition-description">
-                                Sed ut perspiciatis unde omnis iste natus error sit accusantium doloremque
-                                laudantium, laudantium totam rem aperiam, laudantium, laudantium, laudantium
-                                eaque ipsa quae ab illo inventore veritatis.
-                            </p>
-                    </div> <!-- CUSTOM PETITION BOX END -->
+                                <div class="petition-content">
+                                    <div class="petition-title">
+                                    Title goes here...
+                                    </div>
+                                    <p class="petition-description">
+                                    Sed ut perspiciatis unde omnis iste natus error sit accusantium doloremque
+                                    laudantium, laudantium totam rem aperiam, laudantium, laudantium, laudantium
+                                    eaque ipsa quae ab illo inventore veritatis.
+                                    </p>
+
+                                    <button class="view-button">Full Story</button>
+                                </div>
+                        </div> <!-- CUSTOM PETITION BOX END -->
+                    </div> <!-- INNER BOX END -->
                 </div> <!-- CUSTOM LEFT BOX END -->
             </div> <!-- COL-SM-7 END -->
 
             <div class="col-sm-5">
                 <div class="custom-right-box">
                     <h3>Latest</h3>
-                    <div class="custom-petition-box-right">
-                        <div class="petition-image-right">
-                            X
-                        </div>
-                        <div class="petition-content-right">
-                            <div class="petition-title-right">
-                                Title goes here...
+                    <div class="inner-box">
+                        <div class="custom-petition-box-right">
+                            <div class="petition-image">
+                                X
                             </div>
-                            <p class="petition-description-right">
-                                Sed ut perspiciatis unde omnis iste natus error sit accusantium doloremque
-                                laudantium, laudantium totam rem aperiam, laudantium, laudantium, laudantium
-                                eaque ipsa quae ab illo inventore veritatis.
-                            </p>
+                            <div class="petition-content">
+                                 <div class="petition-title-right">
+                                   Title goes here...
+                                 </div>
+                             <p class="petition-description">
+                                 Sed ut perspiciatis unde omnis iste natus error sit accusantium doloremque
+                                 laudantium, laudantium totam rem aperiam, laudantium, laudantium, laudantium
+                                 eaque ipsa quae ab illo inventore veritatis.
+                             </p>
+                            </div>
                         </div>
                     </div> <!-- CUSTOM PETITION BOX END -->
                 </div> <!-- CUSTOM RIGHT BOX END -->
             </div> <!-- COL-SM-5 END -->
 
           </div> <!-- CONTAINER MT-5 END -->
+        </div>
         </div> <!-- End of mid-section -->
     </body> <!-- BODY END -->
 

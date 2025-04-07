@@ -3,6 +3,18 @@
  * Custom stylesheet for styling specific elements
  */
 
+/* For smaller screen size */
+@media (max-width: 576px) {
+.custom-petition-box {
+    flex-direction: column; /* Stack elements vertically */
+}
+
+.petition-image {
+    margin-right: 0; /* Remove right margin */
+    margin-bottom: 10px; /* Add bottom margin */
+  }
+}
+
 .custom-bg-colour {
     background-color: brown;
 }
@@ -10,10 +22,6 @@
 .custom-left-box {
     border-left: 2px solid #f44336;
     border-right: 2px dashed #4caf50;
-    /*
-    border: 2px solid;
-    border-radius: 20px;
-    */
     padding: 30px;
     margin-bottom: 20px;
 }
@@ -22,20 +30,11 @@
     border-left: 2px dashed #03a9f4;
     border-right: 2px solid #f44336;
     padding: 30px;
+    max-height: 500px;
+    overflow-y: auto;
 }
 
 /* Petition box style rules*/
-.custom-petition-box {
-    border: 2px solid #ccc;
-    padding: 15px;
-    margin-bottom: 20px;
-    font-family: sans-serif;
-    box-sizing: border-box;
-    display: flex; /* Enable flexbox */
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    align-items: flex-start; /* Align items to the top */
-}
-
 .custom-petition-box-right {
   display: flex;
   background-color: #f0f0f0; /* Light gray background */
@@ -46,54 +45,61 @@
   align-items: flex-start; /* Align items to the start of the container */
 }
 
-.petition-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%; /* Take full width */
-    margin-bottom: 10px;
+.custom-petition-box-left {
+  background-color: #f8fafc; /* Very light gray background */
+  border: 1px solid #e0e0e0; /* Light gray border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px;
+  margin: 20px; /* Added margin to the card */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack items vertically by default */
+  font-family: 'Inter', sans-serif; /* Use the Inter font */
 }
 
-.petition-header span:first-child {
-    background-color: #e0f7fa; /* Light blue */
-    padding: 5px 10px;
-    color: #03a9f4; /* Blue text */
-    border-radius: 3px;
-  }
-  
-.petition-header span:last-child {
-    background-color: #ffebee; /* Light red */
-    padding: 5px 10px;
-    color: #f44336; /* Red text */
-    border-radius: 3px;
-  }
+.inner-box {
+  border-top: 2px solid #5e35b1;
+}
 
-  .petition-image {
-    width: 100px;
-    height: 100px;
-    background-color: #f0f0f0;
-    border: 1px dashed #999;
-    display: flex;
+.petition-header {
+  display: flex;
+            justify-content: space-between; /* Space between name and signed count */
+            align-items: flex-start; /* Align items to the start (top) */
+            margin-bottom: 15px; /* Add space below the header */
+            flex-wrap: wrap; /* allow header items to wrap on smaller screens*/
+}
+
+.petition-header span {
+  display: block;
+}
+
+.signature-variable {
+  color: #dc3545; /* Red color for the signed count */
+            background-color: #ffebee;
+            padding: 5px;
+            border-radius: 3px;
+}
+
+.name-variable {
+  color: #007bff; /* Blue color for the name */
+            font-weight: 600; /* Make the name bold */
+            background-color: #e0f7fa;
+            padding: 5px;
+            border-radius: 3px;
+}
+
+.petition-image {
+    width: 120px; /* Fixed width for the image container */
+    height: 120px; /* Fixed height for the image container */
+    background-color: #ddd; /* Placeholder image background */
+    margin-right: 20px; /* Space between image and text */
+    display: flex; /* For centering the X */
     justify-content: center;
     align-items: center;
-    font-size: 2em;
-    color: #999;
-    margin-right: 15px; /* Add space between image and text */
-    margin-bottom: 0; /* remove margin bottom */
+    border-radius: 8px;
   }
 
-.petition-image-right {
-  width: 120px; /* Fixed width for the image container */
-          height: 120px; /* Fixed height for the image container */
-          background-color: #ddd; /* Placeholder image background */
-          margin-right: 20px; /* Space between image and text */
-          display: flex; /* For centering the X */
-          justify-content: center;
-          align-items: center;
-          border-radius: 8px;
-}
-
-.petition-content-right {
+.petition-content {
   flex: 1; /* Allow text to take up remaining space */
 }
 
@@ -106,7 +112,7 @@
   padding-bottom: 5px;
 }
 
-.petition-description-right {
+.petition-description {
   font-size: 0.9em;
   color: #555; /* Darker gray for description */
   line-height: 1.5; /* Improve readability */
@@ -133,18 +139,113 @@
     margin-top: 5px;
   }
 
-  .petition-description {
-    font-size: 0.9em;
-    line-height: 1.5;
-  }
+.view-button {
+  background-color: #03a9f4; /* Purple button */
+  color: white; /* White text color */
+  padding: 10px 20px; /* Button padding */
+  border: outset; /* Remove default border */
+  border-radius: 5px; /* Rounded corners for the button */
+  font-size: 0.8rem;
+  cursor: pointer; /* Show a pointer on hover */
+  transition: background-color 0.3s ease; /* Smooth transition */
+  align-self: flex-end; /* Align button to the left */
+}
 
-  @media (max-width: 576px) {
-    .custom-petition-box {
-        flex-direction: column; /* Stack elements vertically */
-    }
+.view-button:hover {
+  background-color: #b388ff; /* Darker purple on hover */
+}
 
-    .petition-image {
-        margin-right: 0; /* Remove right margin */
-        margin-bottom: 10px; /* Add bottom margin */
-    }
+/* POPUP FORM */
+.overlay-pop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.content-pop {
+    background: #f0f8ff; /* Light blue colour */
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    position: relative;
+    font-family: sans-serif;
+}
+
+.content-pop h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.content-pop p {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.content-pop label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.content-pop input[type="text"],
+.content-pop input[type="email"],
+.content-pop input[type="password"] {
+    width: calc(50% - 10px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    float: left;
+}
+
+.content-pop input[type="text"]:nth-child(even),
+.content-pop input[type="email"],
+.content-pop input[type="password"] {
+    margin-left: 20px;
+}
+
+.content-pop input[type="text"]:last-child {
+    width: 100%;
+}
+
+.content-pop button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.content-pop button:hover {
+    opacity: 0.8;
+}
+
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #888;
+}
+
+.close-button:hover {
+    color: #333;
+}
+
+.clear {
+    clear: both;
 }
