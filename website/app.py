@@ -19,11 +19,7 @@ mysql = MySQL(app)
 
 @app.route('/', methods=['GET','POST'])
 def home():
-    is_admin = False # Default value of a user role
     if request.method == 'POST':
-        if 'email' in session:  # if user is already logged in.
-            return render_template('index.html', logged_in=True, email=session['email'], is_admin=False)
-
         email = request.form['email']
         password = request.form['password']
 
@@ -44,6 +40,9 @@ def home():
             if role_confirm and role_confirm['role'] == 'Admin':
                 is_admin = True
 
+            # Store admin in session
+            session['is_admin'] = is_admin
+
             return render_template('index.html', logged_in=True, email=email, is_admin=is_admin)
         else:
             return render_template('index.html', logged_in=False, email=None, is_admin=False)
@@ -51,14 +50,21 @@ def home():
     elif request.method == 'GET':
         if 'email' in session:
             email = session['email']
-            cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cur.execute("SELECT role FROM members WHERE email = %s", (email,))
-            role_confirm = cur.fetchone()
-            cur.close()
 
-            is_admin = False
-            if role_confirm and role_confirm['role'] == 'Admin':
-                is_admin = True
+            # Perform check if admin is in session
+            if 'is_admin' in session:
+                is_admin = session['is_admin']
+            else:
+                cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                cur.execute("SELECT role FROM members WHERE email = %s", (email,))
+                role_confirm = cur.fetchone()
+                cur.close()
+
+                is_admin = False
+                if role_confirm and role_confirm['role'] == 'Admin':
+                    is_admin = True
+
+                session['is_admin'] = is_admin
 
             return render_template('index.html', logged_in=True, email=session['email'], is_admin=is_admin)
         else:
@@ -76,7 +82,8 @@ def signup():
 
     try:
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO members (email, password, firstName, lastName, city, country) VALUES (%s, %s, %s, %s, %s, %s)", (email, password, firstName, lastName, city, country))
+        # Role gets assigned to user by default 'User'
+        cur.execute("INSERT INTO members (email, password, firstName, lastName, city, country, role) VALUES (%s, %s, %s, %s, %s, %s, 'User')", (email, password, firstName, lastName, city, country))
         mysql.connection.commit()
         cur.close()
         return jsonify({'success': True})
