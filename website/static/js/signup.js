@@ -1,4 +1,10 @@
-// THIS IS A SIGN UP FORM SCRIPT
+/*
+    Handle the functionality of a sign up popup form.
+    The form gathers user input and sends a POST request to the /signup endpoint.
+    This is then stored in the database.
+    Moreover, it processes JSON response, closes the popup form and displays a success or failure message.
+*/
+
 // Get references to HTML elements using IDs
 const signupButton = document.getElementById('signup-button');
 const signupPop = document.getElementById('signup-pop');

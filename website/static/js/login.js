@@ -1,4 +1,9 @@
-// THIS IS A LOGIN SCRIPT
+/*
+    Handles login functionality using AJAX.
+    It sends the POST request to the server's root url "/", serialising the form data.
+    If a user exists in the database, the login form will change into a welcome message.
+*/
+
 $(document).ready(function() {
     $('#login').submit(function(event) { // Is triggered when the form is submitted
         event.preventDefault(); // Prevent page reload, allow AJAX to handle submission

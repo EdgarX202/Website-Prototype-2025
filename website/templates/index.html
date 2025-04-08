@@ -17,10 +17,6 @@
 
     <header>
         <div class="container-fluid custom-bg-colour">
-            <div class="row"> <!-- The very top thin line -->
-                <div class="p-1 col-12 col-sm-12 col-md-12 col-lg-12 d-lg-block bg-primary"></div>
-            </div> <!-- ROW END -->
-
             <div class="container bg-body-tertiary">
                 <div class="container">
                     <div class="row">
@@ -186,7 +182,7 @@
                                     </div>
                                     <div class="petition-content">
                                         <div class="petition-title-right">
-                                            <a href="{{ url_for('petition_details', petition_id=petition.id) }}">{{ petition.title }}</a>
+                                            <a class="a-title" href="{{ url_for('petition_details', petition_id=petition.id) }}">{{ petition.title }}</a>
                                         </div>
                                         <p class="petition-description">
                                             {{ petition.description }}

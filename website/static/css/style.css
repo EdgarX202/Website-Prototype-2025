@@ -19,8 +19,19 @@
 }
 
 body a {
+    text-decoration: none;
+}
+
+.a-title {
   text-decoration: none;
   color: black;
+  transition: font-size 0.3s ease, text-decoration 0.3s ease;
+}
+
+.a-title:hover {
+    text-decoration: underline;
+    font-size: 22px;
+    transition: font-size 0.3s ease, text-decoration 0.3s ease;
 }
 
 .signatures-list {
@@ -88,6 +99,10 @@ body a {
   background-color: #ffebee;
   padding: 5px;
   border-radius: 3px;
+}
+
+.signature-variable:hover {
+    cursor: pointer;
 }
 
 .name-variable {
