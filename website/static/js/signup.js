@@ -21,9 +21,10 @@ cancelButton.addEventListener('click', () => {
 signupForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const firstName = document.getElementById('lastName').value;
+    const email = document.getElementById('user-email').value;
+    const password = document.getElementById('user-password').value;
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
     const city = document.getElementById('city').value;
     const country = document.getElementById('country').value;
 
@@ -35,8 +36,8 @@ signupForm.addEventListener('submit', (event) => {
         body: JSON.stringify({
             email: email,
             password: password,
-            firstName: firstName,
-            lastName: lastName,
+            first_name: firstName,
+            last_name: lastName,
             city: city,
             country: country
         })

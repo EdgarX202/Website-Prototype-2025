@@ -10,8 +10,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <script src="{{ url_for('static', filename='js/bootstrap.bundle.js') }}"></script>
-        <script src="{{ url_for('static', filename='/js/login.js') }}"></script>
-        <script src="{{ url_for('static', filename='/js/signup.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/login.js') }}"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head> <!-- HEAD END -->
 
@@ -37,14 +36,18 @@
                             <div id="login-block">
                                 <!-- Display when user is logged in -->
                                 {% if logged_in %}
-                                    <p>Welcome, {{ email }} <a href="/logout">Logout</a></p>
+                                    <p>Welcome, {{ email }}</p>
                                     <!-- Display specific content based on user role (admin or basic user) -->
                                     {% if is_admin %}
-                                        <button>ManagementButton</button>
+                                        <button type="button" class="btn btn-outline-info btn-sm me-md-0 me-1"><a href="/management">Management</a></button>
+                                        <button type="button" class="btn btn-primary btn-sm me-md-0 me-1" disabled>Profile</button>
+                                        <button type="button" class="btn btn-outline-warning btn-sm me-md-0 me-1"><a href="/logout">Logout</a></button>
                                     {% else %}
-                                        <button>New Petition</button>
+                                        <button type="button" class="btn btn-outline-info btn-sm me-md-0 me-1"><a href="/newPet">New Petition</a></button>
+                                        <button type="button" class="btn btn-primary btn-sm me-md-0 me-1" disabled>Profile</button>
+                                        <button type="button" class="btn btn-outline-warning btn-sm me-md-0 me-1"><a href="/logout">Logout</a></button>
                                     {% endif %}
-
+                                <!-- if nothing or user does not exist, refresh the login form -->
                                 {% else %}
                                  <form id="login" method="post">
                                      <div class="row">
@@ -59,11 +62,12 @@
                                             <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
                                          </div>
                                          <div class="col-12 col-md-4">
-                                             <button type="submit" class="btn btn-outline-success mt-md-4 me-md-0 me-3">LOGIN</button> <!-- LOGIN BUTTON -->
+                                             <button type="submit" class="btn btn-outline-success btn-sm mt-md-4 me-md-0">LOGIN</button> <!-- LOGIN BUTTON -->
+                                             <button type="button" id="signup-button" class="btn btn-outline-primary btn-sm mt-md-4 me-md-0">Sign Up</button>
                                          </div>
                                      </div> <!-- ROW END -->
                                  </form> <!-- FORM END -->
-                                <button type="submit" id="signup-button">Sign Up</button>
+                                <!-- <button type="submit" id="signup-button">Sign Up</button> -->
                                 {% endif %}
                             </div> <!-- LOGIN BLOCK END -->
 
@@ -74,25 +78,37 @@
                                     <h2>Create Account</h2>
                                     <p>Please fill in this account creation form.</p>
                                     <form id="signup-form">
-                                        <label for="email">Email</label>
-                                        <input type="email" id="user-email" name="email" required>
-
-                                        <label for="password">Password</label>
-                                        <input type="password" id="user-password" name="password" required>
-
-                                        <label for="firstName">Name</label>
-                                        <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
-                                        <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
-
-                                        <label for="city">City</label>
-                                        <input type="text" id="city" name="city" required>
-
-                                        <label for="country">Country</label>
-                                        <input type="text" id="country" name="country" required>
-
-                                        <div class="clear"></div>
-                                        <button type="submit">CREATE ACCOUNT</button>
-                                        <button type="button" id="cancel-button">CANCEL</button>
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="user-email" name="email" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="password" class="form-label">Password</label>
+                                            <input type="password" class="form-control" id="user-password" name="password" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Name</label>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-2 mb-md-0">
+                                                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="city" class="form-label">City</label>
+                                            <input type="text" class="form-control" id="city" name="city" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="country" class="form-label">Country</label>
+                                            <input type="text" class="form-control" id="country" name="country" required>
+                                        </div>
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                            <button type="submit">CREATE ACCOUNT</button>
+                                            <button type="button" id="cancel-button">CANCEL</button>
+                                        </div>
                                     </form> <!-- POPUP FORM END -->
                                 </div> <!-- CONTENT POP END -->
                             </div> <!-- OVERLAY POP END -->
@@ -161,8 +177,8 @@
             </div> <!-- COL-SM-5 END -->
 
           </div> <!-- CONTAINER MT-5 END -->
-        </div>
         </div> <!-- End of mid-section -->
+    <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
     </body> <!-- BODY END -->
 
     <footer>

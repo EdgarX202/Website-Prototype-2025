@@ -75,15 +75,15 @@ def signup():
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
-    firstName = data.get('firstName')
-    lastName = data.get('lastName')
+    firstName = data.get('first_name')
+    lastName = data.get('last_name')
     city = data.get('city')
     country = data.get('country')
 
     try:
         cur = mysql.connection.cursor()
         # Role gets assigned to user by default 'User'
-        cur.execute("INSERT INTO members (email, password, firstName, lastName, city, country, role) VALUES (%s, %s, %s, %s, %s, %s, 'User')", (email, password, firstName, lastName, city, country))
+        cur.execute("INSERT INTO members (email, password, first_name, last_name, city, country, role) VALUES (%s, %s, %s, %s, %s, %s, 'User')", (email, password, firstName, lastName, city, country))
         mysql.connection.commit()
         cur.close()
         return jsonify({'success': True})
@@ -93,7 +93,9 @@ def signup():
 @app.route('/logout')
 def logout():
     session.pop('email', None)
+    session.pop('is_admin', None)
     return redirect(url_for('home'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
