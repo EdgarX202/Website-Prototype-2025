@@ -1,8 +1,7 @@
-from http.client import responses
-
 from flask import Flask, request, jsonify, session, render_template, redirect, url_for, make_response
 from flask_cors import CORS
 from flask_mysqldb import MySQL
+from http.client import responses
 from io import BytesIO
 import  MySQLdb.cursors, re, hashlib
 
@@ -20,7 +19,7 @@ app.config['MYSQL_DB'] = 'admin_database'
 # Create MySQL object
 mysql = MySQL(app)
 
-# Login logic
+# Login, Session, Queries logic
 @app.route('/', methods=['GET','POST'])
 def home():
     if request.method == 'POST':
@@ -63,7 +62,10 @@ def home():
                 is_admin = session['is_admin']
             else:
                 cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-                cur.execute("SELECT role FROM members WHERE email = %s", (email,))
+                cur.execute(
+                    "SELECT role "
+                    "FROM members "
+                    "WHERE email = %s", (email,))
                 role_confirm = cur.fetchone()
                 cur.close()
 
@@ -73,26 +75,78 @@ def home():
 
                 session['is_admin'] = is_admin
 
-            # Fetch the latest petition from the database
+            # Fetch six latest petition from the database
             cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cur.execute("SELECT * FROM petitions ORDER BY timestamp DESC LIMIT 6")
+            cur.execute(
+                "SELECT * "
+                "FROM petitions "
+                "ORDER BY timestamp DESC "
+                "LIMIT 6")
             latest_pet = cur.fetchall()
             cur.close()
 
-            return render_template('index.html', logged_in=True, email=session['email'], is_admin=is_admin, latest_pet=latest_pet)
+            # Fetch two most popular petitions based on signature count
+            cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cur.execute(
+                "SELECT p.*, COUNT(s.petition_id) AS signature_count "
+                "FROM petitions p "
+                "LEFT JOIN signatures s ON p.id = s,petition_id"
+                "JOIN members m ON p.member_id = m.id "
+                "GROUP BY p.id "
+                "ORDER BY signature_count DESC "
+                "LIMIT 2")
+            popular_pet = cur.fetchall()
+            cur.close()
+
+            return render_template('index.html', logged_in=True, email=session['email'], is_admin=is_admin, latest_pet=latest_pet, popular_pet=popular_pet)
         else:
+            # Fetch six latest petition from the database
             cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cur.execute("SELECT * FROM petitions ORDER BY timestamp DESC LIMIT 6")
+            cur.execute("SELECT * "
+                        "FROM petitions "
+                        "ORDER BY timestamp DESC "
+                        "LIMIT 6")
             latest_pet = cur.fetchall()
             cur.close()
 
-            return render_template('index.html', logged_in=False, email=None, is_admin=False, latest_pet=latest_pet)
+            # Fetch two most popular petitions based on signature count
+            cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cur.execute(
+                "SELECT p.*, COUNT(s.petition_id) AS signature_count "
+                "FROM petitions p "
+                "LEFT JOIN signatures s ON p.id = s.petition_id "
+                "GROUP BY p.id "
+                "ORDER BY signature_count DESC "
+                "LIMIT 2")
+            popular_pet = cur.fetchall()
+            cur.close()
+
+            return render_template('index.html', logged_in=False, email=None, is_admin=False, latest_pet=latest_pet, popular_pet=popular_pet)
+
+# View petition
+@app.route('/petition/<int:petition_id>')
+def petition_details(petition_id):
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute(
+        "SELECT * "
+        "FROM petitions "
+        "WHERE id = %s", (petition_id,))
+    petition = cur.fetchone()
+    cur.close()
+
+    if petition:
+        return render_template('viewPet.html', petition=petition)
+    else:
+        return "Petition not found", 404
 
 # Retrieve a petition image from DB
 @app.route('/image/<int:image_id>')
 def get_image(image_id):
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cur.execute("SELECT image FROM petitions WHERE id = %s", (image_id,))
+    cur.execute(
+        "SELECT image "
+        "FROM petitions "
+        "WHERE id = %s", (image_id,))
     image_data = cur.fetchone()
     cur.close()
 
