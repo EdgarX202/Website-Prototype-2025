@@ -6,31 +6,43 @@
 /* For smaller screen size */
 @media (max-width: 576px) {
 .custom-petition-box {
-    flex-direction: column; /* Stack elements vertically */
+  flex-direction: column; /* Stack elements vertically */
 }
 .petition-image {
-    margin-right: 0; /* Remove right margin */
-    margin-bottom: 10px; /* Add bottom margin */
+  margin-right: 0; /* Remove right margin */
+  margin-bottom: 10px; /* Add bottom margin */
   }
 }
 
 .custom-bg-colour {
-    background-color: brown;
+  background-color: brown;
+}
+
+body a {
+  text-decoration: none;
+  color: black;
+}
+
+.signatures-list {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
 }
 
 /* Style for left and right boxes */
 .custom-left-box {
-    border-left: 2px solid #f44336;
-    border-right: 2px dashed #4caf50;
-    padding: 30px;
-    margin-bottom: 20px;
+  border-left: 2px solid #f44336;
+  border-right: 2px dashed #4caf50;
+  padding: 30px;
+  margin-bottom: 20px;
 }
 .custom-right-box {
-    border-left: 2px dashed #03a9f4;
-    border-right: 2px solid #f44336;
-    padding: 30px;
-    max-height: 500px;
-    overflow-y: auto;
+  border-left: 2px dashed #03a9f4;
+  border-right: 2px solid #f44336;
+  padding: 30px;
+  max-height: 833px;
+  overflow-y: auto;
 }
 
 /* ----------- PETITION BOX ----------- */

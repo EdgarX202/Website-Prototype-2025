@@ -136,7 +136,7 @@
                                 <div class="custom-petition-box-left">
                                     <div class="petition-header">
                                         <span class="name-variable">Creator: {{ petition.first_name }}</span> <!-- NOT SHOWING ???? -->
-                                        <span class="signature-variable">Signed: {{ petition.signature_count }}</span>
+                                        <span class="signature-variable signatures-trigger" data-petition-id="{{ petition.id }}">Signed: {{ petition.signature_count }}</span>
                                     </div> <!-- PETITION HEADER END -->
                                     <div class="petition-image">
                                         {% if petition.image %}
@@ -152,8 +152,10 @@
                                         <p class="petition-description">
                                             {{ petition.description }}
                                         </p> <!-- PETITION DESCRIPTION END -->
-                                        <button class="view-button">Full Story</button>
+                                        <!-- Link to the petition page -->
+                                        <a href="{{ url_for('petition_details', petition_id=petition.id) }}" class="view-button">Full Story</a>
                                     </div> <!-- PETITION CONTENT END -->
+                                    <div class="signatures-list" id="signatures-list-{{ petition.id }}"></div>
                                 </div> <!-- CUSTOM PETITION BOX END -->
                             {% endfor %}
                         {% else %}
@@ -161,6 +163,10 @@
                         {% endif %}
                     </div> <!-- INNER BOX END -->
                 </div> <!-- CUSTOM LEFT BOX END -->
+
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script src="{{ url_for('static', filename='js/signatures.js') }}"></script>
+
             </div> <!-- COL-SM-7 END -->
 
               <!-- Right side of mid-section -->
@@ -180,7 +186,7 @@
                                     </div>
                                     <div class="petition-content">
                                         <div class="petition-title-right">
-                                            {{ petition.title }}
+                                            <a href="{{ url_for('petition_details', petition_id=petition.id) }}">{{ petition.title }}</a>
                                         </div>
                                         <p class="petition-description">
                                             {{ petition.description }}

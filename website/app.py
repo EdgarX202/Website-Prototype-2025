@@ -139,6 +139,21 @@ def petition_details(petition_id):
     else:
         return "Petition not found", 404
 
+# Signature count logic
+@app.route('/signatures/<int:petition_id>')
+def get_signatures(petition_id):
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("""
+                SELECT m.first_name, m.last_name, m.email
+                FROM signatures s
+                JOIN members m ON s.user_id = m.id
+                WHERE s.petition_id = %s
+            """, (petition_id,))
+    signatures = cur.fetchall()
+    cur.close()
+
+    return jsonify(signatures)
+
 # Retrieve a petition image from DB
 @app.route('/image/<int:image_id>')
 def get_image(image_id):
