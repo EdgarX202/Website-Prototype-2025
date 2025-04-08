@@ -4,9 +4,9 @@ from flask_mysqldb import MySQL
 import  MySQLdb.cursors, re, hashlib
 
 app = Flask(__name__)
-CORS(app)
+CORS(app) # Cross Origin Resource Sharing
 
-app.secret_key = 'key' # For extra protection
+app.secret_key = 'key' # For extra protection (session management)
 
 # MySQL Configuration
 app.config['MYSQL_HOST'] = 'localhost'
@@ -17,20 +17,22 @@ app.config['MYSQL_DB'] = 'admin_database'
 # Create MySQL object
 mysql = MySQL(app)
 
+# Login logic
 @app.route('/', methods=['GET','POST'])
 def home():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
 
-        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cur.execute("SELECT * FROM members WHERE email = %s AND password = %s", (email, password))
-        user = cur.fetchone()
-        cur.close()
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor) # Create a cursor to execute SQL queries -> return result as dictionary
+        cur.execute("SELECT * FROM members WHERE email = %s AND password = %s", (email, password)) # Check if user exists in the database
+        user = cur.fetchone() # Get the first matching row
+        cur.close() # Close cursor
 
+        # Create session with the user
         if user:
             session['email'] = email
-            # Checking user role
+            # Check users role
             cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cur.execute("SELECT role FROM members WHERE email = %s", (email,))
             role_confirm = cur.fetchone()
@@ -40,18 +42,20 @@ def home():
             if role_confirm and role_confirm['role'] == 'Admin':
                 is_admin = True
 
-            # Store admin in session
-            session['is_admin'] = is_admin
+            session['is_admin'] = is_admin # Store admin in session
 
+            # Render index page if login is successful and with admin status
             return render_template('index.html', logged_in=True, email=email, is_admin=is_admin)
         else:
+            # Otherwise render index page with login failure
             return render_template('index.html', logged_in=False, email=None, is_admin=False)
 
     elif request.method == 'GET':
+        # GET request, handle session and render index
         if 'email' in session:
-            email = session['email']
+            email = session['email'] # User is logged in
 
-            # Perform check if admin is in session
+            # Check if admin is in session or fetch from database
             if 'is_admin' in session:
                 is_admin = session['is_admin']
             else:
@@ -70,9 +74,10 @@ def home():
         else:
             return render_template('index.html', logged_in=False, email=None, is_admin=False)
 
+ # Signup logic
 @app.route('/signup', methods=['POST'])
 def signup():
-    data = request.get_json()
+    data = request.get_json() # Get JSON data from request
     email = data.get('email')
     password = data.get('password')
     firstName = data.get('first_name')
@@ -82,20 +87,22 @@ def signup():
 
     try:
         cur = mysql.connection.cursor()
+        # Insert new users data into the database
         # Role gets assigned to user by default 'User'
+        # Would need to manually assign 'Admin' role to someone
         cur.execute("INSERT INTO members (email, password, first_name, last_name, city, country, role) VALUES (%s, %s, %s, %s, %s, %s, 'User')", (email, password, firstName, lastName, city, country))
-        mysql.connection.commit()
+        mysql.connection.commit() # Commit
         cur.close()
-        return jsonify({'success': True})
+        return jsonify({'success': True}) # Return success or an error message as JSON
     except Exception as e:
         return  jsonify({'success': False, 'message': str(e)})
 
+# Logout logic
 @app.route('/logout')
 def logout():
-    session.pop('email', None)
-    session.pop('is_admin', None)
-    return redirect(url_for('home'))
-
+    session.pop('email', None) # Remove email from session
+    session.pop('is_admin', None) # Remove admin from session
+    return redirect(url_for('home')) # Redirect back to home page
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True) # Change to debug=False later

@@ -1,26 +1,25 @@
-
-
+// THIS IS A SIGN UP FORM SCRIPT
+// Get references to HTML elements using IDs
 const signupButton = document.getElementById('signup-button');
 const signupPop = document.getElementById('signup-pop');
 const closePop = document.getElementById('close-pop');
 const cancelButton = document.getElementById('cancel-button');
 const signupForm = document.getElementById('signup-form');
 
+// Event listeners
 signupButton.addEventListener('click', () => {
-    signupPop.style.display = 'flex';
+    signupPop.style.display = 'flex'; // Show the popup (none=hide)
 });
-
 closePop.addEventListener('click', () => {
     signupPop.style.display = 'none';
 });
-
 cancelButton.addEventListener('click', () => {
     signupPop.style.display = 'none';
 });
-
 signupForm.addEventListener('submit', (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Prevent page reload (default form submission behaviour)
 
+    // Get the values from the input fields
     const email = document.getElementById('user-email').value;
     const password = document.getElementById('user-password').value;
     const firstName = document.getElementById('firstName').value;
@@ -28,12 +27,13 @@ signupForm.addEventListener('submit', (event) => {
     const city = document.getElementById('city').value;
     const country = document.getElementById('country').value;
 
+    // Send a POST request to /signup endpoint
     fetch('/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
+        body: JSON.stringify({ // Convert data to JSON string
             email: email,
             password: password,
             first_name: firstName,
@@ -42,8 +42,8 @@ signupForm.addEventListener('submit', (event) => {
             country: country
         })
     })
-    .then(response => response.json())
-    .then(data => {
+    .then(response => response.json()) // Parse JSON response
+    .then(data => { // Display message - successful/error
         if (data.success) {
             alert('Account created successfully!');
             signupPop.style.display = 'none';
@@ -52,7 +52,7 @@ signupForm.addEventListener('submit', (event) => {
         }
     })
     .catch(error => {
-        console.error('Error:', error);
+        console.error('Error:', error); // Log errors to console
         alert('An error occurred. Please try again.');
     });
 });

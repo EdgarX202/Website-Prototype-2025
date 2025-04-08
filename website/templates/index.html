@@ -36,20 +36,22 @@
                         <div class="p-4 col-12 col-md-12 col-lg-6 text-center">
                             <div id="login-block">
                                 <!-- Display when user is logged in -->
+                                <!-- Check backend for logged_in variable -->
                                 {% if logged_in %}
                                     <p>Welcome, {{ email }}</p>
                                     <!-- Display specific content based on user role (admin or basic user) -->
-                                    {% if is_admin %}
+                                    {% if is_admin %} <!-- Admin section -->
                                         <button type="button" class="btn btn-outline-info btn-sm me-md-0 me-1"><a href="/management">Management</a></button>
                                         <button type="button" class="btn btn-primary btn-sm me-md-0 me-1" disabled>Profile</button>
                                         <button type="button" class="btn btn-outline-warning btn-sm me-md-0 me-1"><a href="/logout">Logout</a></button>
-                                    {% else %}
+                                    {% else %} <!-- User section -->
                                         <button type="button" class="btn btn-outline-info btn-sm me-md-0 me-1"><a href="/newPet">New Petition</a></button>
                                         <button type="button" class="btn btn-primary btn-sm me-md-0 me-1" disabled>Profile</button>
                                         <button type="button" class="btn btn-outline-warning btn-sm me-md-0 me-1"><a href="/logout">Logout</a></button>
                                     {% endif %}
                                 <!-- if nothing or user does not exist, refresh the login form -->
                                 {% else %}
+                                <!-- User login form - BOOTSTRAP validation -->
                                  <form id="login" method="post">
                                      <div class="row">
                                          <div class="col-12 col-md-4 mb-md-0 mb-2">
@@ -68,7 +70,6 @@
                                          </div>
                                      </div> <!-- ROW END -->
                                  </form> <!-- FORM END -->
-                                <!-- <button type="submit" id="signup-button">Sign Up</button> -->
                                 {% endif %}
                             </div> <!-- LOGIN BLOCK END -->
 
@@ -76,8 +77,9 @@
                             <div class="overlay-pop" id="signup-pop">
                                 <div class="content-pop">
                                     <span class="close-button" id="close-pop">&times;</span>
-                                    <h2>Create Account</h2>
+                                    <h2>Create New Account</h2>
                                     <p>Please fill in this account creation form.</p>
+
                                     <form id="signup-form">
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
@@ -96,8 +98,8 @@
                                                 <div class="col-md-6">
                                                     <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            </div> <!-- ROW END -->
+                                        </div> <!-- MB-3 END -->
                                         <div class="mb-3">
                                             <label for="city" class="form-label">City</label>
                                             <input type="text" class="form-control" id="city" name="city" required>
@@ -110,15 +112,15 @@
                                             <button type="submit">CREATE ACCOUNT</button>
                                             <button type="button" id="cancel-button">CANCEL</button>
                                         </div>
-                                    </form> <!-- POPUP FORM END -->
+                                    </form> <!-- SIGNUP FORM END -->
                                 </div> <!-- CONTENT POP END -->
                             </div> <!-- OVERLAY POP END -->
 
-                        </div>
+                        </div> <!-- RIGHT SIDE COLUMN END -->
                     </div> <!-- ROW END -->
                 </div> <!-- CONTAINER END -->
-            </div> <!-- FLUID-CONTAINER BG COLOUR END -->
-        </div> <!-- FLUID-CONTAINER END -->
+            </div> <!-- CONTAINER BG COLOUR END -->
+        </div> <!-- CONTAINER-FLUID END -->
     </header> <!-- HEADER END -->
 
     <body> <!-- BODY -->
@@ -133,73 +135,75 @@
                             <div class="petition-header">
                                 <span class="name-variable">"Name variable"</span>
                                 <span class="signature-variable">Signed: "variable"</span>
-                            </div>
+                            </div> <!-- PETITION HEADER END -->
                             <div class="petition-image">
-                                X
-                            </div>
-                                <div class="petition-content">
-                                    <div class="petition-title">
+
+                            </div> <!-- PETITION IMAGE END -->
+                            <div class="petition-content">
+                                <div class="petition-title">
                                     Title goes here...
-                                    </div>
-                                    <p class="petition-description">
+                                </div> <!-- PETITION TITLE END -->
+                                <p class="petition-description">
                                     Sed ut perspiciatis unde omnis iste natus error sit accusantium doloremque
                                     laudantium, laudantium totam rem aperiam, laudantium, laudantium, laudantium
                                     eaque ipsa quae ab illo inventore veritatis.
-                                    </p>
+                                </p> <!-- PETITION DESCRIPTION END -->
 
-                                    <button class="view-button">Full Story</button>
-                                </div>
+                                <button class="view-button">Full Story</button>
+                            </div> <!-- PETITION CONTENT END -->
                         </div> <!-- CUSTOM PETITION BOX END -->
                     </div> <!-- INNER BOX END -->
                 </div> <!-- CUSTOM LEFT BOX END -->
             </div> <!-- COL-SM-7 END -->
 
+              <!-- Right side of mid-section -->
             <div class="col-sm-5">
                 <div class="custom-right-box">
                     <h3>Latest</h3>
                     <div class="inner-box">
                         <div class="custom-petition-box-right">
                             <div class="petition-image">
-                                X
-                            </div>
+
+                            </div> <!-- PETITION IMAGE END -->
                             <div class="petition-content">
-                                 <div class="petition-title-right">
-                                   Title goes here...
-                                 </div>
-                             <p class="petition-description">
-                                 Sed ut perspiciatis unde omnis iste natus error sit accusantium doloremque
-                                 laudantium, laudantium totam rem aperiam, laudantium, laudantium, laudantium
-                                 eaque ipsa quae ab illo inventore veritatis.
-                             </p>
-                            </div>
-                        </div>
+                                <div class="petition-title-right">
+                                    Title goes here...
+                                </div> <!-- PETITION TITLE RIGHT END -->
+                                <p class="petition-description">
+                                    Sed ut perspiciatis unde omnis iste natus error sit accusantium doloremque
+                                    laudantium, laudantium totam rem aperiam, laudantium, laudantium, laudantium
+                                    eaque ipsa quae ab illo inventore veritatis.
+                                </p> <!-- PETITION DESCRIPTION END -->
+                            </div> <!-- PETITION CONTENT END -->
+                        </div> <!-- CUSTOM PETITION BOX RIGHT END -->
                     </div> <!-- CUSTOM PETITION BOX END -->
                 </div> <!-- CUSTOM RIGHT BOX END -->
             </div> <!-- COL-SM-5 END -->
-
           </div> <!-- CONTAINER MT-5 END -->
         </div> <!-- End of mid-section -->
+
+    <!-- Script for signup window -->
     <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
     </body> <!-- BODY END -->
 
     <footer>
         <div class="mt-5 p-3 fw-bold bg-dark text-white text-center">
-          <p>ENU@2025</p>
+            <p>ENU@2025</p>
             <div class="mt-3">
-            <a href="#" class="text-white me-2">
-                <i class="fab fa-facebook-square fa-2x"></i>
-            </a>
-            <a href="#" class="text-white me-2">
-                <i class="fab fa-twitter-square fa-2x"></i>
-            </a>
-            <a href="#" class="text-white me-2">
-                <i class="fab fa-instagram-square fa-2x"></i>
-            </a>
-            <a href="#" class="text-white">
-                <i class="fab fa-linkedin fa-2x"></i>
-            </a>
-        </div>
+                <!-- Social media icons -->
+                <a href="#" class="text-white me-2">
+                    <i class="fab fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="#" class="text-white me-2">
+                    <i class="fab fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="#" class="text-white me-2">
+                    <i class="fab fa-instagram-square fa-2x"></i>
+                </a>
+                <a href="#" class="text-white">
+                    <i class="fab fa-linkedin fa-2x"></i>
+                </a>
+            </div>
         </div>
     </footer> <!-- FOOTER END -->
-
 </html> <!-- HTML END -->

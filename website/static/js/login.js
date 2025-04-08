@@ -1,19 +1,24 @@
+// THIS IS A LOGIN SCRIPT
 $(document).ready(function() {
-    $('#login').submit(function(event) {
-        event.preventDefault(); // Prevent default form submission
+    $('#login').submit(function(event) { // Is triggered when the form is submitted
+        event.preventDefault(); // Prevent page reload, allow AJAX to handle submission
 
+        // Initiate AJAX
         $.ajax({
             url: '/', // Current route
             type: 'POST',
-            data: $(this).serialize(),
+            data: $(this).serialize(), // Serialise data into a query string
             dataType: 'json',
-            success: function(response) {
+            success: function(response) { // Execute if AJAX request is successful. Data returned to the server
                 if (response.success) {
-                    $('#login-section').html('<p>Welcome, ' + response.email + '! <a href="/logout">Logout</a></p>'); //corrected logout url
+                // If successful, update the content with the following - display welcome message
+                    $('#login-section').html('<p>Welcome, ' + response.email + '! <a href="/logout">Logout</a></p>');
                 } else {
+                // Otherwise it's a failure, display error message
                     $('#error-message').text(response.error);
                 }
             },
+            // Display when error occurs
             error: function(error) {
                 $('#error-message').text('An error occurred.');
             }
