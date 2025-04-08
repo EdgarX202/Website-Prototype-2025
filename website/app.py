@@ -70,9 +70,20 @@ def home():
 
                 session['is_admin'] = is_admin
 
-            return render_template('index.html', logged_in=True, email=session['email'], is_admin=is_admin)
+            # Fetch the latest petition from the database
+            cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cur.execute("SELECT * FROM petitions ORDER BY timestamp DESC LIMIT 6")
+            latest_pet = cur.fetchall()
+            cur.close()
+
+            return render_template('index.html', logged_in=True, email=session['email'], is_admin=is_admin, latest_pet=latest_pet)
         else:
-            return render_template('index.html', logged_in=False, email=None, is_admin=False)
+            cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cur.execute("SELECT * FROM petitions ORDER BY timestamp DESC LIMIT 6")
+            latest_pet = cur.fetchall()
+            cur.close()
+
+            return render_template('index.html', logged_in=False, email=None, is_admin=False, latest_pet=latest_pet)
 
  # Signup logic
 @app.route('/signup', methods=['POST'])

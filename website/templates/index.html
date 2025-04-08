@@ -161,21 +161,29 @@
                 <div class="custom-right-box">
                     <h3>Latest</h3>
                     <div class="inner-box">
-                        <div class="custom-petition-box-right">
-                            <div class="petition-image">
-
-                            </div> <!-- PETITION IMAGE END -->
-                            <div class="petition-content">
-                                <div class="petition-title-right">
-                                    Title goes here...
-                                </div> <!-- PETITION TITLE RIGHT END -->
-                                <p class="petition-description">
-                                    Sed ut perspiciatis unde omnis iste natus error sit accusantium doloremque
-                                    laudantium, laudantium totam rem aperiam, laudantium, laudantium, laudantium
-                                    eaque ipsa quae ab illo inventore veritatis.
-                                </p> <!-- PETITION DESCRIPTION END -->
-                            </div> <!-- PETITION CONTENT END -->
-                        </div> <!-- CUSTOM PETITION BOX RIGHT END -->
+                        {% if latest_pet %}
+                            {% for petition in latest_pet %}
+                                <div class="custom-petition-box-right">
+                                    <div class="petition-image">
+                                        {% if petition.image_url %}
+                                            <img src="{{ petition.image_url }}">
+                                        {% else %}
+                                            <span>No Image</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="petition-content">
+                                        <div class="petition-title-right">
+                                            {{ petition.title }}
+                                        </div>
+                                        <p class="petition-description">
+                                            {{ petition.description }}
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>No latest petition available.</p>
+                        {% endif %}
                     </div> <!-- CUSTOM PETITION BOX END -->
                 </div> <!-- CUSTOM RIGHT BOX END -->
             </div> <!-- COL-SM-5 END -->
