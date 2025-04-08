@@ -1,6 +1,9 @@
-from flask import Flask, request, jsonify, session, render_template, redirect, url_for
+from http.client import responses
+
+from flask import Flask, request, jsonify, session, render_template, redirect, url_for, make_response
 from flask_cors import CORS
 from flask_mysqldb import MySQL
+from io import BytesIO
 import  MySQLdb.cursors, re, hashlib
 
 app = Flask(__name__)
@@ -84,6 +87,31 @@ def home():
             cur.close()
 
             return render_template('index.html', logged_in=False, email=None, is_admin=False, latest_pet=latest_pet)
+
+# Retrieve a petition image from DB
+@app.route('/image/<int:image_id>')
+def get_image(image_id):
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT image FROM petitions WHERE id = %s", (image_id,))
+    image_data = cur.fetchone()
+    cur.close()
+
+    if image_data and image_data['image']:
+        image_blob = image_data['image']
+
+        # Determine the image type
+        if image_blob.startswith(b'\xFF\xD8'):
+            mime_type = 'image/jpeg'
+        elif image_blob.startswith(b'\x89PNG\r\n\x1a\n'):
+            mime_type = 'image/png'
+        else:
+            mime_type = 'image/jpeg'  # Default to JPEG if unknown
+
+        response = make_response(bytes(image_blob))
+        response.headers.set('Content-Type', mime_type)
+        return response
+    else:
+        return 'Image not found', 404
 
  # Signup logic
 @app.route('/signup', methods=['POST'])

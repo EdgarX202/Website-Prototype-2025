@@ -95,7 +95,14 @@
     justify-content: center;
     align-items: center;
     border-radius: 8px;
+    overflow: hidden;
   }
+
+ .petition-image img {
+    max-width: 100%
+    max-height: 100%
+    object-fit: contain;
+ }
 
 .petition-content {
   flex: 1; /* Allow text to take up remaining space */
