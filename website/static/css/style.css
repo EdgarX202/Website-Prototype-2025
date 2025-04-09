@@ -191,19 +191,11 @@ body a {
 }
 
 .view-button {
-  background-color: #03a9f4; /* Purple colour */
-  color: white;
-  padding: 10px 20px;
-  border: outset;
-  border-radius: 5px;
-  font-size: 0.8rem;
-  cursor: pointer; /* Show a pointer on hover */
-  transition: background-color 0.3s ease; /* Smooth transition */
-  align-self: flex-end;
+  font-size: 12px;
 }
 
 .view-button:hover {
-  background-color: #b388ff; /* Darker purple on hover */
+  background-color: #653FE8;
 }
 
 /* ----------- POPUP FORM ----------- */
