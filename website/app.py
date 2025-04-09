@@ -3,12 +3,16 @@ from flask_cors import CORS
 from flask_mysqldb import MySQL
 from http.client import responses
 from io import BytesIO
+import os
 import  MySQLdb.cursors, re, hashlib
 
 app = Flask(__name__)
 CORS(app) # Cross Origin Resource Sharing
 
-app.secret_key = 'key' # For extra protection (session management)
+
+app.secret_key = os.environ.get('FLASK_SECRET_KEY') # For extra protection (session management)
+if not app.secret_key:
+    app.secret_key = os.urandom(24)
 
 # MySQL Configuration
 app.config['MYSQL_HOST'] = 'localhost'
@@ -22,6 +26,7 @@ mysql = MySQL(app)
 # Login, Session logic
 @app.route('/', methods=['GET','POST'])
 def home():
+    # print("Session in hone (before):", session) # FOR DEBUG
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -45,10 +50,10 @@ def home():
                 is_admin = True
 
             session['is_admin'] = is_admin # Store admin in session
-
+            # print("Session in hone (post login):", session) # FOR DEBUG
             # Render index page if login is successful and with admin status
             return render_template('index.html', logged_in=True, email=email, is_admin=is_admin)
-            #return jsonify({'success': True, 'email': email}) <--- use for debug
+            #return jsonify({'success': True, 'email': email}) # FOR DEBUG
         else:
             # Otherwise render index page with login failure
             return render_template('index.html', logged_in=False, email=None, is_admin=False)
@@ -89,14 +94,15 @@ def home():
 
             # Fetch two most popular petitions based on signature count
             cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cur.execute(
-                "SELECT p.*, COUNT(s.petition_id) AS signature_count "
-                "FROM petitions p "
-                "LEFT JOIN signatures s ON p.id = s.petition_id"
-                "JOIN members m ON p.member_id = m.id "
-                "GROUP BY p.id "
-                "ORDER BY signature_count DESC "
-                "LIMIT 2")
+            cur.execute("""
+                SELECT p.*, COUNT(s.petition_id) AS signature_count
+                FROM petitions p
+                LEFT JOIN signatures s ON p.id = s.petition_id
+                JOIN members m ON p.member_id = m.id
+                GROUP BY p.id
+                ORDER BY signature_count DESC
+                LIMIT 2
+                """)
             popular_pet = cur.fetchall()
             cur.close()
 
@@ -128,6 +134,7 @@ def home():
 # View all petitions
 @app.route('/view_all_pet')
 def view_all_petitions():
+    print("Session in view_all_petitions:", session)  # Added print
     try:
         cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cur.execute("""
@@ -140,11 +147,14 @@ def view_all_petitions():
         petitions = cur.fetchall()
         cur.close()
 
-        return render_template('viewAll.html', petitions=petitions)
+        logged_in = session.get('email') is not None
+        email = session.get('email')
+        is_admin = session.get('is_admin', False)
+
+        return render_template('viewAll.html', petitions=petitions, logged_in=logged_in, email=email, is_admin=is_admin)
     except Exception as e:
         print(f"Error fetching petitions: {e}")
         return "Internal Server Error", 500
-
 
 # View petition
 @app.route('/petition/<int:petition_id>')
@@ -162,8 +172,11 @@ def petition_details(petition_id):
     cur.close()
 
     if petition:
-        logged_in = session.get('logged_in', False)
-        return render_template('viewPet.html', petition=petition, logged_in=logged_in)
+        logged_in = session.get('email') is not None
+        email = session.get('email')
+        is_admin = session.get('is_admin', False)
+
+        return render_template('viewPet.html', petition=petition, logged_in=logged_in, email=email, is_admin=is_admin)
     else:
         return "Petition not found", 404
 
