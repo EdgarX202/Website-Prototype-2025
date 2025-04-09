@@ -14,7 +14,7 @@ $(document).ready(function() {
                 }
             },
             error: function() {
-                alert('Failed to sign petition.');
+                alert('Failed to sign the petition.');
             }
         });
     });

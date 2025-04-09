@@ -6,7 +6,7 @@
         <!-- Title of the webpage and favicon -->
         <title>Petitions Market</title>
         <link rel="icon" type="image/png" sizes="48x48" href="static/images/favicon.png">
-        <!-- Stylesheets, javascript, jquery(CDN) -->
+        <!-- Stylesheets, jQuery, js, CDNs -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/viewPetStyle.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -14,6 +14,7 @@
         <script src="{{ url_for('static', filename='js/bootstrap.bundle.js') }}"></script>
         <script src="{{ url_for('static', filename='js/login.js') }}"></script>
         <script src="{{ url_for('static', filename='js/socialShare.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/petition_sign.js') }}"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head> <!-- HEAD END -->
 
@@ -121,7 +122,7 @@
         </div> <!-- CONTAINER-FLUID END -->
     </header> <!-- HEADER END -->
 
-    <body> <!-- BODY -->
+    <body>
         <!-- Start of mid-section -->
         <div class="viewPetBody">
             <div class="box col-md-7">
@@ -136,7 +137,7 @@
                     {% else %}
                         <span>No Image</span>
                     {% endif %}
-                </div> <!-- PETIMG END -->
+                </div> <!-- PET IMG END -->
 
                 <div class="social">
                     <div>
@@ -155,21 +156,18 @@
                     <div class="signInfo">
                         <div class="fname">{{ petition.first_name }}</div><br>
                         <strong>Signed:</strong> {{ petition.signature_count }}
-                    </div> <!-- SIGNINFO END -->
+                    </div> <!-- SIGN INFO END -->
 
                     <div class="signBtn">
-                        <input type="text" placeholder="Sign here">
                         <button id="sign-btn" data-petition-id="{{ petition.id }}">SIGN HERE</button>
-                    </div> <!-- SIGNBTN END -->
+                    </div> <!-- SIGN BTN END -->
                 </div> <!-- SIGN BOX END -->
 
                 <div class="viewPetDesc">
                     <p>{{ petition.description }}</p>
-                </div> <!-- VIEWPETDESC END -->
+                </div> <!-- VIEW PET DESC END -->
             </div> <!-- BOX COL-MD-6 END -->
         </div> <!-- VIEW PET BODY END -->
-
-    <script src="{{ url_for('static', filename='js/petition_sign.js') }}"></script>
     </body> <!-- BODY END -->
 
     <footer>
@@ -177,6 +175,7 @@
             <p>ENU@2025</p>
             <div class="mt-3">
                 <!-- Social media icons -->
+                <!-- To use if this website has any personal social media -->
                 <a href="#" class="text-white me-2">
                     <i class="fab fa-facebook-square fa-2x"></i>
                 </a>

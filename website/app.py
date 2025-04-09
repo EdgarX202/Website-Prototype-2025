@@ -161,6 +161,12 @@ def petition_sign(petition_id):
 
         user_id = user['id']
 
+        cur.execute("SELECT * FROM signatures WHERE petition_id = %s AND user_id = %s", (petition_id, user_id))
+        existing_signature = cur.fetchone()
+
+        if existing_signature:
+            return jsonify({'error': "You have already signed this petition!"}), 400
+
         cur.execute("INSERT INTO signatures (petition_id, user_id) VALUES (%s, %s)", (petition_id, user_id))
         mysql.connection.commit()
 
