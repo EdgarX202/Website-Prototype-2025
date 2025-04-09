@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/viewPetStyle.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/viewAll.css') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
         <script src="{{ url_for('static', filename='js/bootstrap.bundle.js') }}"></script>
         <script src="{{ url_for('static', filename='js/login.js') }}"></script>
@@ -124,7 +125,36 @@
 
     <body>
         <!-- Start of mid-section -->
-        
+        <div class="container">
+            <h2 class="text-center mb-4 mt-5">MAIN MARKET</h2>
+            <div class="row">
+                {% for petition in petitions %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>{{ petition.title }}</h2>
+                        </div>
+                        <div class="petimg">
+                            {% if petition.image %}
+                                <img src="{{ url_for('get_image', image_id=petition.id) }}">
+                            {% else %}
+                                <span>No Image</span>
+                            {% endif %}
+                        </div>
+                        <div class="signature-area">
+                            <div class="signature-info">
+                                <strong>{{ petition.first_name }}</strong><br>
+                                <i>Signed:</i> {{ petition.signature_count }}
+                            </div>
+                        </div>
+                        <div class="content">
+                            <p>{{ petition.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </body> <!-- BODY END -->
 
     <footer>

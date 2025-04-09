@@ -128,9 +128,22 @@ def home():
 # View all petitions
 @app.route('/view_all_pet')
 def view_all_petitions():
+    try:
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute("""
+            SELECT p.*, m.first_name, COUNT(s.petition_id) AS signature_count
+            FROM petitions p
+            JOIN members m ON p.member_id = m.id
+            LEFT JOIN signatures s ON p.id = s.petition_id
+            GROUP BY p.id
+        """)
+        petitions = cur.fetchall()
+        cur.close()
 
-
-    return render_template('viewAll.html')
+        return render_template('viewAll.html', petitions=petitions)
+    except Exception as e:
+        print(f"Error fetching petitions: {e}")
+        return "Internal Server Error", 500
 
 
 # View petition
