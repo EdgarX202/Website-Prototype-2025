@@ -125,6 +125,14 @@ def home():
 
             return render_template('index.html', logged_in=False, email=None, is_admin=False, latest_pet=latest_pet, popular_pet=popular_pet)
 
+# View all petitions
+@app.route('/view_all_pet')
+def view_all_petitions():
+
+
+    return render_template('viewAll.html')
+
+
 # View petition
 @app.route('/petition/<int:petition_id>')
 def petition_details(petition_id):

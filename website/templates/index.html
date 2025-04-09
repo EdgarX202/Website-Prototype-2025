@@ -128,11 +128,12 @@
                 <div class="custom-left-box">
                     <h3>Most Popular</h3>
                     <div class="inner-box">
+                        <a href="{{ url_for('view_all_petitions') }}" class="view-all-button" >View All</a>
                         {% if popular_pet %}
                             {% for petition in popular_pet %}
                                 <div class="custom-petition-box-left">
                                     <div class="petition-header">
-                                        <span class="name-variable">Creator: {{ petition.first_name }}</span> <!-- NOT SHOWING ???? -->
+                                        <span class="name-variable">{{ petition.first_name }}</span> <!-- NOT SHOWING ???? -->
                                         <span class="signature-variable signatures-trigger" data-petition-id="{{ petition.id }}">Signed: {{ petition.signature_count }}</span>
                                     </div> <!-- PETITION HEADER END -->
                                     <div class="petition-image">
