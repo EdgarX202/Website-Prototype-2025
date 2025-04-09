@@ -129,17 +129,7 @@
                 <div class="box-header">
                     <h2>{{ petition.title }}</h2>
                     <p><strong>GOAL:</strong> {{ petition.goal }}</p>
-                </div> <!-- BOX HEADER END -->
-
-                <div class="petImg">
-                    {% if petition.image %}
-                        <img src="{{ url_for('get_image', image_id=petition.id) }}">
-                    {% else %}
-                        <span>No Image</span>
-                    {% endif %}
-                </div> <!-- PET IMG END -->
-
-                <div class="social">
+                    <div class="social">
                     <div>
                         <a href="#" class="text-success me-2" data-title="{{ petition.title }}" data-url="{{ request.url }}" onclick="sharePetition('facebook', this)">
                             <i class="fab fa-facebook-square fa-2x"></i>
@@ -151,11 +141,19 @@
                         </a>
                     </div>
                 </div> <!-- SOCIAL END -->
+                </div> <!-- BOX HEADER END -->
 
+                <div class="petImg">
+                    {% if petition.image %}
+                        <img src="{{ url_for('get_image', image_id=petition.id) }}">
+                    {% else %}
+                        <span>No Image</span>
+                    {% endif %}
+                </div> <!-- PET IMG END -->
                 <div class="signBox">
                     <div class="signInfo">
-                        <div class="fname">{{ petition.first_name }}</div><br>
-                        <strong>Signed:</strong> {{ petition.signature_count }}
+                        <div class="f-name">{{ petition.first_name }}</div><br>
+                        <span class="signature-variable signatures-trigger" data-petition-id="{{ petition.id }}"><strong>Signed:</strong> {{ petition.signature_count }} </span>
                     </div> <!-- SIGN INFO END -->
 
                     <div class="signBtn">
@@ -166,8 +164,13 @@
                 <div class="viewPetDesc">
                     <p>{{ petition.description }}</p>
                 </div> <!-- VIEW PET DESC END -->
+                <!-- Show the list of signatures -->
+                <div class="signatures-list" id="signatures-list-{{ petition.id }}"></div>
             </div> <!-- BOX COL-MD-6 END -->
         </div> <!-- VIEW PET BODY END -->
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="{{ url_for('static', filename='js/signatures.js') }}"></script>
     </body> <!-- BODY END -->
 
     <footer>

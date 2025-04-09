@@ -134,7 +134,7 @@
                         <div class="box-header">
                             <h2>{{ petition.title }}</h2>
                         </div>
-                        <div class="petimg">
+                        <div class="pet-img">
                             {% if petition.image %}
                                 <img src="{{ url_for('get_image', image_id=petition.id) }}">
                             {% else %}
@@ -149,6 +149,9 @@
                         </div>
                         <div class="content">
                             <p>{{ petition.description }}</p>
+                        </div>
+                        <div class="view-pet-btn">
+                            <a href="{{ url_for('petition_details', petition_id=petition.id) }}" class="btn btn-primary">Full Story</a>
                         </div>
                     </div>
                 </div>
