@@ -52,12 +52,12 @@ def home():
             session['is_admin'] = is_admin # Store admin in session
             # print("Session in hone (post login):", session) # FOR DEBUG
             # Render index page if login is successful and with admin status
-            return render_template('index.html', logged_in=True, email=email, is_admin=is_admin)
-            #return jsonify({'success': True, 'email': email}) # FOR DEBUG
+            #return render_template('index.html', logged_in=True, email=email, is_admin=is_admin)
+            return jsonify({'success': True, 'email': email})
         else:
             # Otherwise render index page with login failure
-            return render_template('index.html', logged_in=False, email=None, is_admin=False)
-            # return jsonify({'success': False, 'error': 'Invalid credentials'}) <--- use for debug
+            #return render_template('index.html', logged_in=False, email=None, is_admin=False)
+             return jsonify({'success': False, 'error': 'Invalid credentials'})
 
     elif request.method == 'GET':
         # GET request, handle session and render index
@@ -130,6 +130,15 @@ def home():
             cur.close()
 
             return render_template('index.html', logged_in=False, email=None, is_admin=False, latest_pet=latest_pet, popular_pet=popular_pet)
+
+# Create new petition
+#@app.route('/createPet', methods=['POST'])
+#def create_petition():
+
+# Management
+@app.route('/mgmt')
+def management_page():
+    return render_template('management.html')
 
 # View all petitions
 @app.route('/view_all_pet')
