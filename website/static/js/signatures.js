@@ -10,7 +10,8 @@ $(document).ready(function() {
         var petitionId = $(this).data('petition-id');
         var signaturesList = $('#signatures-list-' + petitionId);
 
-        $.ajax({ // Perform an asynchronous HTTP request using jQuery AJAX functionality
+        // Initiate AJAX
+        $.ajax({
             url: '/signatures/' + petitionId,
             type: 'GET',
             success: function(data) { // Execute if successful

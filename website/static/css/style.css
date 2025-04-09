@@ -9,8 +9,8 @@
   flex-direction: column; /* Stack elements vertically */
 }
 .petition-image {
-  margin-right: 0; /* Remove right margin */
-  margin-bottom: 10px; /* Add bottom margin */
+  margin-right: 0;
+  margin-bottom: 10px;
   }
 }
 
