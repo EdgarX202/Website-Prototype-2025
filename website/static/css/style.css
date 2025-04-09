@@ -1,0 +1,283 @@
+@charset "UTF-8";
+/*!
+ * Custom stylesheet for styling specific elements
+ */
+
+/* For smaller screen size */
+@media (max-width: 576px) {
+.custom-petition-box {
+  flex-direction: column; /* Stack elements vertically */
+}
+.petition-image {
+  margin-right: 0; /* Remove right margin */
+  margin-bottom: 10px; /* Add bottom margin */
+  }
+}
+
+.custom-bg-colour {
+  background-color: brown;
+}
+
+body a {
+    text-decoration: none;
+}
+
+.a-title {
+  text-decoration: none;
+  color: black;
+  transition: font-size 0.3s ease, text-decoration 0.3s ease;
+}
+
+.a-title:hover {
+    text-decoration: underline;
+    font-size: 22px;
+    transition: font-size 0.3s ease, text-decoration 0.3s ease;
+}
+
+.signatures-list {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+}
+
+/* Style for left and right boxes */
+.custom-left-box {
+  border-left: 2px solid #f44336;
+  border-right: 2px dashed #4caf50;
+  padding: 30px;
+  margin-bottom: 20px;
+}
+.custom-right-box {
+  border-left: 2px dashed #03a9f4;
+  border-right: 2px solid #f44336;
+  padding: 30px;
+  max-height: 833px;
+  overflow-y: auto;
+}
+
+/* ----------- PETITION BOX ----------- */
+.custom-petition-box-right {
+  display: flex; /* Using flexbox for layout */
+  background-color: #f0f0f0; /* Light gray background */
+  padding: 20px;
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  align-items: flex-start; /* Align items to the start of the container */
+}
+.custom-petition-box-left {
+  background-color: #f8fafc; /* Very light gray background */
+  border: 1px solid #e0e0e0; /* Light gray border */
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  font-family: 'Inter', sans-serif;
+}
+
+.inner-box {
+  border-top: 2px solid #5e35b1;
+}
+
+.petition-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.petition-header span {
+  display: block;
+}
+
+.signature-variable {
+  color: #dc3545; /* Red colour */
+  background-color: #ffebee;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.signature-variable:hover {
+    cursor: pointer;
+}
+
+.name-variable {
+  color: #007bff; /* Blue colour */
+  font-weight: 600;
+  background-color: #e0f7fa;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.petition-image {
+    width: 120px;
+    height: 120px;
+    background-color: #ddd;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+ .petition-image img {
+    max-width: 100%
+    max-height: 100%
+    object-fit: contain;
+ }
+
+.petition-content {
+  flex: 1; /* Allow text to take up remaining space */
+}
+
+.petition-title-right {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #5e35b1; /* Purple colour */
+  margin-bottom: 5px;
+  border-bottom: 2px solid #b388ff;
+  padding-bottom: 5px;
+}
+
+.petition-description {
+  font-size: 0.9em;
+  color: #555; /* Darker gray */
+  line-height: 1.5;
+}
+
+.petition-title,
+.petition-description {
+   flex: 1;
+   min-width: 0; /* Prevent overflow */
+}
+
+.petition-title {
+   font-size: 1.5em;
+   font-weight: bold;
+   margin-bottom: 5px;
+}
+
+/* Pseudo element to add a green line after the petition title */
+.petition-title::after {
+   content: "";
+   display: block;
+   width: 100%;
+   height: 3px;
+   background-color: #4caf50; /* Green colour */
+   margin-top: 5px;
+}
+
+.view-button {
+  background-color: #03a9f4; /* Purple colour */
+  color: white;
+  padding: 10px 20px;
+  border: outset;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  cursor: pointer; /* Show a pointer on hover */
+  transition: background-color 0.3s ease; /* Smooth transition */
+  align-self: flex-end;
+}
+
+.view-button:hover {
+  background-color: #b388ff; /* Darker purple on hover */
+}
+
+/* ----------- POPUP FORM ----------- */
+.overlay-pop {
+  display: none; /* Hide the popup by default */
+  position: fixed; /* Position relative to the viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Make sure the form is in front of every other element */
+}
+
+.content-pop {
+  background: #ffffff; /* White colour */
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.content-pop h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.content-pop p {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #666;
+  font-size: 16px;
+}
+
+.form-control {
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.form-label {
+  margin-bottom: 5px;
+}
+
+.row {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
+.col-md-6 {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.d-grid.gap-2.d-md-flex.justify-content-md-center {
+  margin-top: 20px;
+}
+
+.content-pop button {
+  background-color: #03a9f4; /* Purple colour */
+  color: white;
+  padding: 10px 20px;
+  border: outset;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.content-pop button:last-child {
+  background-color: red;
+}
+
+.content-pop button:hover {
+  background-color: #b388ff; /* Darker purple on hover */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #888; /* Grey colour */
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #333; /* Dark grey on hover */
+}
