@@ -19,7 +19,7 @@ app.config['MYSQL_DB'] = 'admin_database'
 # Create MySQL object
 mysql = MySQL(app)
 
-# Login, Session, Queries logic
+# Login, Session logic
 @app.route('/', methods=['GET','POST'])
 def home():
     if request.method == 'POST':
@@ -48,9 +48,11 @@ def home():
 
             # Render index page if login is successful and with admin status
             return render_template('index.html', logged_in=True, email=email, is_admin=is_admin)
+            #return jsonify({'success': True, 'email': email}) <--- use for debug
         else:
             # Otherwise render index page with login failure
             return render_template('index.html', logged_in=False, email=None, is_admin=False)
+            # return jsonify({'success': False, 'error': 'Invalid credentials'}) <--- use for debug
 
     elif request.method == 'GET':
         # GET request, handle session and render index
@@ -143,6 +145,35 @@ def petition_details(petition_id):
         return render_template('viewPet.html', petition=petition, logged_in=logged_in)
     else:
         return "Petition not found", 404
+
+# Register a new signature logic
+@app.route('/petition_sign/<int:petition_id>', methods=['POST'])
+def petition_sign(petition_id):
+    if 'email' not in session:
+        return jsonify({'error': 'User login required'}), 401
+
+    try:
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute("SELECT id FROM members WHERE email = %s", (session['email'],))
+        user = cur.fetchone()
+        if not user:
+            return jsonify({'error': 'User not found'}), 404
+
+        user_id = user['id']
+
+        cur.execute("INSERT INTO signatures (petition_id, user_id) VALUES (%s, %s)", (petition_id, user_id))
+        mysql.connection.commit()
+
+        cur.execute("SELECT COUNT(*) AS signature_count FROM signatures WHERE petition_id = %s", (petition_id,))
+        count = cur.fetchone()
+        signature_count = count['signature_count']
+
+        cur.close()
+
+        return jsonify({'signature_count': signature_count})
+    except Exception as e:
+        print(f"Can't sign at this time: {e}")
+        return jsonify({'error': 'Internal server error'}), 500
 
 # Signature count logic
 @app.route('/signatures/<int:petition_id>')

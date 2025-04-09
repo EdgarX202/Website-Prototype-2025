@@ -78,7 +78,11 @@
 }
 
 .signInfo strong {
-    color: blue;
+    color: #4EAAF5;
+}
+
+.fname {
+    color: green;
 }
 
 .signBtn {

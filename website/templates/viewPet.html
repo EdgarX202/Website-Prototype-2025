@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
         <script src="{{ url_for('static', filename='js/bootstrap.bundle.js') }}"></script>
         <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/socialShare.js') }}"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head> <!-- HEAD END -->
 
@@ -49,7 +50,7 @@
                                 <!-- if nothing or user does not exist, refresh the login form -->
                                 {% else %}
                                 <!-- User login form - BOOTSTRAP validation -->
-                                 <form id="login" method="post">
+                                 <form id="login" method="post" action="/">
                                      <div class="row">
                                          <div class="col-12 col-md-4 mb-md-0 mb-2">
                                             <label for="email" class="form-label">Email:</label>
@@ -139,30 +140,26 @@
 
                 <div class="social">
                     <div>
-                        <a href="https://facebook.com" class="text-success me-2">
+                        <a href="#" class="text-success me-2" data-title="{{ petition.title }}" data-url="{{ request.url }}" onclick="sharePetition('facebook', this)">
                             <i class="fab fa-facebook-square fa-2x"></i>
                         </a>
                     </div>
                     <div>
-                        <a href="https://x.com" class="text-warning me-2">
+                        <a href="#" class="text-warning me-2" data-title="{{ petition.title }}" data-url="{{ request.url }}" onclick="sharePetition('x', this)">
                             <i class="fab fa-twitter-square fa-2x"></i>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="https://instagram.com" class="text-danger me-2">
-                            <i class="fab fa-instagram-square fa-2x"></i>
                         </a>
                     </div>
                 </div> <!-- SOCIAL END -->
 
                 <div class="signBox">
                     <div class="signInfo">
-                        <strong>{{ petition.first_name }}</strong><br>
+                        <div class="fname">{{ petition.first_name }}</div><br>
                         <strong>Signed:</strong> {{ petition.signature_count }}
                     </div> <!-- SIGNINFO END -->
+
                     <div class="signBtn">
                         <input type="text" placeholder="Sign here">
-                        <button>SIGN HERE</button>
+                        <button id="sign-btn" data-petition-id="{{ petition.id }}">SIGN HERE</button>
                     </div> <!-- SIGNBTN END -->
                 </div> <!-- SIGN BOX END -->
 
@@ -171,6 +168,8 @@
                 </div> <!-- VIEWPETDESC END -->
             </div> <!-- BOX COL-MD-6 END -->
         </div> <!-- VIEW PET BODY END -->
+
+    <script src="{{ url_for('static', filename='js/petition_sign.js') }}"></script>
     </body> <!-- BODY END -->
 
     <footer>
