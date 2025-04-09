@@ -98,7 +98,7 @@ body a {
 }
 
 .inner-box {
-  border-top: 2px solid #5e35b1;
+  border-top: 2px solid #5e35b1; /* Top line under "Most Popular" */
 }
 
 .petition-header {
