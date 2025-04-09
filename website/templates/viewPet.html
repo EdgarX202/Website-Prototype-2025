@@ -23,7 +23,7 @@
                     <div class="row">
                         <!-- Logo column (left-side) -->
                         <div class="col-12 col-md-12 col-lg-4 bg-transparent text-center">
-                            <img src="static/images/logo.png" class="img-fluid mx-auto d-block mt-md-2" alt="Logo">
+                            <a href="{{ url_for('home') }}"> <img src="static/images/logo.png" class="img-fluid mx-auto d-block mt-md-2" alt="Home"></a>
                         </div>
 
                         <!-- Middle column, not used. Required to make other columns smaller -->
@@ -123,14 +123,18 @@
     <body> <!-- BODY -->
         <!-- Start of mid-section -->
         <div class="viewPetBody">
-            <div class="box col-md-6">
+            <div class="box col-md-7">
                 <div class="box-header">
-                    <h2>"title variable"</h2>
-                    <p><strong>GOAL:</strong> "variable"</p>
+                    <h2>{{ petition.title }}</h2>
+                    <p><strong>GOAL:</strong> {{ petition.goal }}</p>
                 </div> <!-- BOX HEADER END -->
 
                 <div class="petImg">
-
+                    {% if petition.image %}
+                        <img src="{{ url_for('get_image', image_id=petition.id) }}">
+                    {% else %}
+                        <span>No Image</span>
+                    {% endif %}
                 </div> <!-- PETIMG END -->
 
                 <div class="social">
@@ -153,8 +157,8 @@
 
                 <div class="signBox">
                     <div class="signInfo">
-                        <strong>"Name variable"</strong><br>
-                        Signed: "Variable"
+                        <strong>{{ petition.first_name }}</strong><br>
+                        <strong>Signed:</strong> {{ petition.signature_count }}
                     </div> <!-- SIGNINFO END -->
                     <div class="signBtn">
                         <input type="text" placeholder="Sign here">
@@ -163,7 +167,7 @@
                 </div> <!-- SIGN BOX END -->
 
                 <div class="viewPetDesc">
-                    <p>Description goes here ...</p>
+                    <p>{{ petition.description }}</p>
                 </div> <!-- VIEWPETDESC END -->
             </div> <!-- BOX COL-MD-6 END -->
         </div> <!-- VIEW PET BODY END -->

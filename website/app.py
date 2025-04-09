@@ -90,7 +90,7 @@ def home():
             cur.execute(
                 "SELECT p.*, COUNT(s.petition_id) AS signature_count "
                 "FROM petitions p "
-                "LEFT JOIN signatures s ON p.id = s,petition_id"
+                "LEFT JOIN signatures s ON p.id = s.petition_id"
                 "JOIN members m ON p.member_id = m.id "
                 "GROUP BY p.id "
                 "ORDER BY signature_count DESC "
@@ -127,15 +127,20 @@ def home():
 @app.route('/petition/<int:petition_id>')
 def petition_details(petition_id):
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cur.execute(
-        "SELECT * "
-        "FROM petitions "
-        "WHERE id = %s", (petition_id,))
+    cur.execute("""
+        SELECT p.*, m.first_name, COUNT(s.petition_id) AS signature_count
+        FROM petitions p
+        JOIN members m ON p.member_id = m.id
+        LEFT JOIN signatures s ON p.id = s.petition_id
+        WHERE p.id = %s
+        GROUP BY p.id
+        """, (petition_id,))
     petition = cur.fetchone()
     cur.close()
 
     if petition:
-        return render_template('viewPet.html', petition=petition)
+        logged_in = session.get('logged_in', False)
+        return render_template('viewPet.html', petition=petition, logged_in=logged_in)
     else:
         return "Petition not found", 404
 
