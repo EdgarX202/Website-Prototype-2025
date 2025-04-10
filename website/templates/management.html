@@ -9,12 +9,14 @@
         <!-- Stylesheets, jQuery, js, CDNs -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/viewPetStyle.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/management.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
         <script src="{{ url_for('static', filename='js/bootstrap.bundle.js') }}"></script>
         <script src="{{ url_for('static', filename='js/login.js') }}"></script>
         <script src="{{ url_for('static', filename='js/socialShare.js') }}"></script>
         <script src="{{ url_for('static', filename='js/petition_sign.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/management.js') }}"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head> <!-- HEAD END -->
 
@@ -126,8 +128,63 @@
         <!-- Start of mid-section -->
         <div class="viewPetBody">
             <div class="box col-md-7">
+                <div class="container mt-5">
+        <div class="text-center mb-4">
+            <div class="btn-group" role="group">
+                <button id="petitions-button" type="button" class="btn btn-outline-secondary">Petitions</button>
+                <button id="members-button" type="button" class="btn btn-outline-secondary">Members</button>
+            </div>
+        </div>
 
-            </div> <!-- BOX COL-MD-6 END -->
+        <div id="petitions-table-container" class="mt-4">
+            <h2>Petitions</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Petition ID</th>
+                        <th>Title</th>
+                        <th>Goal</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>"Id variable"</td>
+                        <td>"title variable"</td>
+                        <td>"Goal variable"</td>
+                        <td><button class="btn btn-danger btn-sm delete-petition-button">Delete</button></td>
+                    </tr>
+                    </tbody>
+            </table>
+        </div>
+
+        <div id="members-table-container" class="mt-4" style="display: none;">
+            <h2>Members</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Member ID</th>
+                        <th>Email</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>City</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>"member id variable"</td>
+                        <td>"member email variable"</td>
+                        <td>"first_name variable"</td>
+                        <td>"last_name variable"</td>
+                        <td>"city variable"</td>
+                        <td><button class="btn btn-warning btn-sm block-member-button">Block</button></td>
+                    </tr>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+            </div> <!-- BOX COL-MD-7 END -->
         </div> <!-- VIEW PET BODY END -->
     </body> <!-- BODY END -->
 
