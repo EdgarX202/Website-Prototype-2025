@@ -264,10 +264,39 @@ def get_image(image_id):
         return 'Image not found', 404
 
 # Create new petition logic
-#@app.route('/createPet', methods=['POST'])
-#def create_petition():
+@app.route('/createPet', methods=['POST'])
+def create_petition():
+    if 'email' not in session:
+        return jsonify({'success': False, 'message': 'User not logged in'}), 401
 
- # Signup logic
+    data = request.get_json()
+    title = data.get('title')
+    goal = data.get('goal')
+    location = data.get('location')
+    description = data.get('description')
+    image = data.get('image') # <--- not sure?
+
+    try:
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+        cur.execute("SELECT id FROM members WHERE email = %s", (session['email'],))
+        member = cur.fetchone()
+        if not member:
+            return jsonify({'success': False, 'message': 'User not found'}), 404
+
+        member_id = member['id']
+
+        # Insert petition into the database
+        cur.execute("INSERT INTO petitions (title, goal, location, description, image, member_id) VALUES (%s, %s, %s, %s, %s, %s)",
+                    (title, goal, location, description, image, member_id)
+                    )
+        mysql.connection.commit()
+        cur.close()
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+# Signup logic
 @app.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json() # Get JSON data from request
