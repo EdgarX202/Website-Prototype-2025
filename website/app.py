@@ -54,12 +54,12 @@ def home():
             session['is_admin'] = is_admin # Store admin in session
             # print("Session in hone (post login):", session) # FOR DEBUG
             # Render index page if login is successful and with admin status
-            #return render_template('index.html', logged_in=True, email=email, is_admin=is_admin)
-            return jsonify({'success': True, 'email': email})
+            return render_template('index.html', logged_in=True, email=email, is_admin=is_admin)
+            #return jsonify({'success': True, 'email': email})
         else:
             # Otherwise render index page with login failure
-            #return render_template('index.html', logged_in=False, email=None, is_admin=False)
-             return jsonify({'success': False, 'error': 'Invalid credentials'})
+            return render_template('index.html', logged_in=False, email=None, is_admin=False)
+            #return jsonify({'success': False, 'error': 'Invalid credentials'})
 
     elif request.method == 'GET':
         # GET request, handle session and render index
@@ -136,7 +136,38 @@ def home():
 # Management
 @app.route('/mgmt')
 def management_page():
-    return render_template('management.html')
+    if 'email' not in session or not session.get('is_admin'):
+        return redirect(url_for('home')) # Shouldn't occur but just incase
+
+    logged_in = session.get('email') is not None
+    email = session.get('email')
+    is_admin = session.get('is_admin', False)
+
+    return render_template('management.html', logged_in=logged_in, email=email, is_admin=is_admin)
+
+# Get all petitions from DB
+@app.route('/petitions')
+def get_petitions():
+    try:
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute("SELECT id, title, goal FROM petitions")
+        petitions = cur.fetchall()
+        cur.close()
+        return jsonify(petitions)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# Get all members from DB
+@app.route('/members')
+def get_members():
+    try:
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cur.execute("SELECT id, email, first_name, last_name, city FROM members")
+        members = cur.fetchall()
+        cur.close()
+        return jsonify(members)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 # View all petitions
 @app.route('/view_all_pet')

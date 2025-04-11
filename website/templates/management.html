@@ -42,7 +42,7 @@
                                     <p>Welcome, {{ email }}</p>
                                     <!-- Display specific content based on user role (admin or basic user) -->
                                     {% if is_admin %} <!-- Admin section -->
-                                        <button type="button" class="btn btn-outline-info btn-sm me-md-0 me-1"><a href="/management">Management</a></button>
+                                        <button type="button" class="btn btn-outline-info btn-sm me-md-0 me-1"><a href="{{ url_for('management_page') }}">Management</a></button>
                                         <button type="button" class="btn btn-primary btn-sm me-md-0 me-1" disabled>Profile</button>
                                         <button type="button" class="btn btn-outline-warning btn-sm me-md-0 me-1"><a href="/logout">Logout</a></button>
                                     {% else %} <!-- User section -->
@@ -148,13 +148,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>"Id variable"</td>
-                        <td>"title variable"</td>
-                        <td>"Goal variable"</td>
-                        <td><button class="btn btn-danger btn-sm delete-petition-button">Delete</button></td>
-                    </tr>
-                    </tbody>
+                <!-- Populate using JS -->
+                </tbody>
             </table>
         </div>
 
@@ -172,15 +167,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>"member id variable"</td>
-                        <td>"member email variable"</td>
-                        <td>"first_name variable"</td>
-                        <td>"last_name variable"</td>
-                        <td>"city variable"</td>
-                        <td><button class="btn btn-warning btn-sm block-member-button">Block</button></td>
-                    </tr>
-                    </tbody>
+                <!-- Populate using JS -->
+                </tbody>
             </table>
         </div>
     </div>

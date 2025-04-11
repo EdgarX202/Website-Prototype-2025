@@ -41,7 +41,7 @@
                                     <p>Welcome, {{ email }}</p>
                                     <!-- Display specific content based on user role (admin or basic user) -->
                                     {% if is_admin %} <!-- Admin section -->
-                                        <button type="button" class="btn btn-outline-info btn-sm me-md-0 me-1"><a href="/management">Management</a></button>
+                                        <button type="button" class="btn btn-outline-info btn-sm me-md-0 me-1"><a href="{{ url_for('management_page') }}">Management</a></button>
                                         <button type="button" class="btn btn-primary btn-sm me-md-0 me-1" disabled>Profile</button>
                                         <button type="button" class="btn btn-outline-warning btn-sm me-md-0 me-1"><a href="/logout">Logout</a></button>
                                     {% else %} <!-- User section -->
