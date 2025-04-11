@@ -1,3 +1,5 @@
+import base64
+
 from flask import Flask, request, jsonify, session, render_template, redirect, url_for, make_response
 from flask_cors import CORS
 from flask_mysqldb import MySQL
@@ -274,7 +276,7 @@ def create_petition():
     goal = data.get('goal')
     location = data.get('location')
     description = data.get('description')
-    image = data.get('image') # <--- not sure?
+    image = data.get('image') # Will need to convert to binary for DB
 
     try:
         cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -286,9 +288,11 @@ def create_petition():
 
         member_id = member['id']
 
+        image_binary = base64.b64decode(image) # Decode image
+
         # Insert petition into the database
         cur.execute("INSERT INTO petitions (title, goal, location, description, image, member_id) VALUES (%s, %s, %s, %s, %s, %s)",
-                    (title, goal, location, description, image, member_id)
+                    (title, goal, location, description, image_binary, member_id)
                     )
         mysql.connection.commit()
         cur.close()

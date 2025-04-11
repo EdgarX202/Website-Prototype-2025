@@ -12,7 +12,7 @@ const closeNewPetPop = document.getElementById('close-new-pet-pop');
 const cancelPetButton = document.getElementById('cancel-pet-button');
 const newPetForm = document.getElementById('new-pet-form');
 
-console.log("newPetButton:", newPetButton);
+/* console.log("newPetButton:", newPetButton); */
 
 // Event listeners
 newPetButton.addEventListener('click', () => {
@@ -24,43 +24,51 @@ closeNewPetPop.addEventListener('click', () => {
 cancelPetButton.addEventListener('click', () => {
     newPetPop.style.display = 'none';
 });
-newPetForm.addEventListener('submit', (event) => {
-    event.preventDefault(); // Prevent page reload (default form submission behaviour)
 
-    // Get the values from the input fields
+newPetForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
     const title = document.getElementById('title').value;
     const goal = document.getElementById('goal').value;
     const location = document.getElementById('location').value;
     const description = document.getElementById('description').value;
-    const image = document.getElementById('image').value;
+    const imageInput = document.getElementById('image');
+    const imageFile = imageInput.files[0];
 
-    // Send a POST request to /signup endpoint
-    fetch('/createPet', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ // Convert data to JSON string
-            title: title,
-            goal: goal,
-            location: location,
-            description: description,
-            image: image
-        })
-    })
-    .then(response => response.json()) // Parse JSON response
-    .then(data => { // Display message - successful/error
-        if (data.success) {
-            alert('Petition created successfully!');
-            newPetPop.style.display = 'none';
-        } else {
-            alert('Error creating new petition: ' + data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error); // Log errors to console
-        alert('An error occurred. Please try again.');
-    });
+    if (imageFile) {
+        const reader = new FileReader();
+        reader.onloadend = function() {
+            const imageBase64 = reader.result.split(',')[1]; // Extract base64 part
+
+            fetch('/createPet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: title,
+                    goal: goal,
+                    location: location,
+                    description: description,
+                    image: imageBase64
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Petition created successfully!');
+                    newPetPop.style.display = 'none';
+                } else {
+                    alert('Error creating new petition: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        };
+        reader.readAsDataURL(imageFile);
+    }
 });
 
 window.addEventListener('click', (event) => {
