@@ -253,6 +253,19 @@ def petition_sign(petition_id):
         print(f"Can't sign at this time: {e}")
         return jsonify({'error': 'Internal server error'}), 500
 
+# Delete petition
+@app.route('/delete_pet/<int:petition_id>', methods=['DELETE'])
+def delete_pet(petition_id):
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute("DELETE FROM petitions WHERE id = %s", (petition_id,))
+        mysql.connection.commit()
+        cur.close()
+
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
 # Signature count logic
 @app.route('/signatures/<int:petition_id>')
 def get_signatures(petition_id):

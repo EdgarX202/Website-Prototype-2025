@@ -14,9 +14,32 @@ document.addEventListener('DOMContentLoaded', function() {
                         <td>${petition.id}</td>
                         <td>${petition.title}</td>
                         <td>${petition.goal}</td>
-                        <td><button class="btn btn-danger btn-sm delete-petition-button">Delete</button></td>
+                        <td><button class="btn btn-danger btn-sm delete-petition-button" data-petition-id="${petition.id}">Delete</button></td>
                     `;
                     tableBody.appendChild(row);
+                });
+
+                const deleteButtons = document.querySelectorAll('.delete-petition-button');
+                deleteButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const petitionId = this.dataset.petitionId;
+                        fetch(`/delete_pet/${petitionId}`, {
+                            method: 'DELETE'
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Remove the row from the table
+                                this.parentElement.parentElement.remove();
+                            } else {
+                                alert('Error deleting petition: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred. Please try again.');
+                        });
+                    });
                 });
             });
     }
@@ -45,24 +68,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     populatePetTable();
     populateMembersTable();
-})
 
-const petitionsButton = document.getElementById('petitions-button');
-const membersButton = document.getElementById('members-button');
-const petitionsTableContainer = document.getElementById('petitions-table-container');
-const membersTableContainer = document.getElementById('members-table-container');
+    const petitionsButton = document.getElementById('petitions-button');
+    const membersButton = document.getElementById('members-button');
+    const petitionsTableContainer = document.getElementById('petitions-table-container');
+    const membersTableContainer = document.getElementById('members-table-container');
 
-petitionsButton.addEventListener('click', () => {
-    petitionsTableContainer.style.display = 'block';
-    membersTableContainer.style.display = 'none';
-    petitionsButton.classList.add('active');
-    membersButton.classList.remove('active');
+    petitionsButton.addEventListener('click', () => {
+        petitionsTableContainer.style.display = 'block';
+        membersTableContainer.style.display = 'none';
+        petitionsButton.classList.add('active');
+        membersButton.classList.remove('active');
+    });
+
+    membersButton.addEventListener('click', () => {
+        petitionsTableContainer.style.display = 'none';
+        membersTableContainer.style.display = 'block';
+        membersButton.classList.add('active');
+        petitionsButton.classList.remove('active');
+    });
+        petitionsButton.classList.add('active');
 });
-
-membersButton.addEventListener('click', () => {
-    petitionsTableContainer.style.display = 'none';
-    membersTableContainer.style.display = 'block';
-    membersButton.classList.add('active');
-    petitionsButton.classList.remove('active');
-});
-    petitionsButton.classList.add('active');
