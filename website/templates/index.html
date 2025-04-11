@@ -41,7 +41,7 @@
                                         <button type="button" class="btn btn-primary btn-sm me-md-0 me-1" disabled>Profile</button>
                                         <button type="button" class="btn btn-outline-warning btn-sm me-md-0 me-1"><a href="/logout">Logout</a></button>
                                     {% else %} <!-- User section -->
-                                        <button type="button" class="btn btn-outline-info btn-sm me-md-0 me-1"><a href="/newPet">New Petition</a></button> <!-- Should be a popup window -->
+                                        <button type="button"  id="new-pet-button" class="btn btn-outline-info btn-sm me-md-0 me-1">New Petition</button>
                                         <button type="button" class="btn btn-primary btn-sm me-md-0 me-1" disabled>Profile</button>
                                         <button type="button" class="btn btn-outline-warning btn-sm me-md-0 me-1"><a href="/logout">Logout</a></button>
                                     {% endif %}
@@ -68,6 +68,42 @@
                                  </form> <!-- FORM END -->
                                 {% endif %}
                             </div> <!-- LOGIN BLOCK END -->
+
+                            <!-- Popup for new petition -->
+                            <div class="overlay-pop" id="new-pet-pop">
+                                <div class="content-pop">
+                                    <span class="close-button" id="close-new-pet-pop">&times;</span>
+                                    <h2>Petition Form</h2>
+
+                                    <form id="new-pet-form">
+                                        <div class="mb-3">
+                                            <label for="title" class="form-label">Title</label>
+                                            <input type="text" class="form-control" id="title" name="title" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="goal" class="form-label">Goal</label>
+                                            <input type="text" class="form-control" id="goal" name="goal" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="location" class="form-label">Location</label>
+                                            <input type="text" class="form-control" id="location" name="location" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">Description</label>
+                                            <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="image" class="form-label">Upload Image</label>
+                                            <input type="file" class="form-control" id="image" name="image" required>
+                                        </div>
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                            <button type="submit">CREATE A PETITION</button>
+                                            <button type="button" id="cancel-pet-button">CANCEL</button>
+                                            <button type="reset">CLEAR</button>
+                                        </div>
+                                    </form> <!-- PETITION FORM END -->
+                                </div> <!-- CONTENT POP END -->
+                            </div> <!-- OVERLAY POP END -->
 
                             <!-- Popup window for sign up -->
                             <div class="overlay-pop" id="signup-pop">
@@ -107,6 +143,7 @@
                                         <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                             <button type="submit">CREATE ACCOUNT</button>
                                             <button type="button" id="cancel-button">CANCEL</button>
+                                            <button type="reset">CLEAR</button>
                                         </div>
                                     </form> <!-- SIGNUP FORM END -->
                                 </div> <!-- CONTENT POP END -->
@@ -195,8 +232,10 @@
             </div> <!-- COL-SM-5 END -->
           </div> <!-- CONTAINER MT-5 END -->
         </div> <!-- End of mid-section -->
-        <!-- Script for signup window -->
+
+        <!-- Scripts for signup and new petition windows -->
         <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/newPet.js') }}"></script>
     </body> <!-- BODY END -->
 
     <footer>

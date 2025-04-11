@@ -131,10 +131,6 @@ def home():
 
             return render_template('index.html', logged_in=False, email=None, is_admin=False, latest_pet=latest_pet, popular_pet=popular_pet)
 
-# Create new petition
-#@app.route('/createPet', methods=['POST'])
-#def create_petition():
-
 # Management
 @app.route('/mgmt')
 def management_page():
@@ -266,6 +262,10 @@ def get_image(image_id):
         return response
     else:
         return 'Image not found', 404
+
+# Create new petition logic
+#@app.route('/createPet', methods=['POST'])
+#def create_petition():
 
  # Signup logic
 @app.route('/signup', methods=['POST'])
